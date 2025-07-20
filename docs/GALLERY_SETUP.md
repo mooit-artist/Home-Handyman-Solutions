@@ -1,79 +1,107 @@
-# Gallery Google Drive Setup Instructions
+# Gallery Static Image Setup Instructions
 
 ## Overview
-The gallery page is now configured to display images from Google Drive. This allows customers to easily share their project photos, and you can manage the gallery by updating the image URLs in the code.
+The gallery page now uses a static HTML/CSS approach with images stored in a structured directory system. This allows for simple file uploads and automatic display without any JavaScript configuration.
 
-## How to Add Images to the Gallery
+## Directory Structure
 
-### Step 1: Get Google Drive Image URL
-1. Upload the image to Google Drive
-2. Right-click the image → Select "Get link"
-3. Change sharing to "Anyone with the link"
-4. Copy the sharing URL (it will look like: `https://drive.google.com/file/d/FILE_ID/view?usp=sharing`)
-5. Extract the FILE_ID from the URL (the long string between `/d/` and `/view`)
-6. Convert to direct image URL: `https://drive.google.com/uc?id=FILE_ID`
-
-### Step 2: Update the Gallery Code
-1. Open `gallery.html`
-2. Find the `googleDriveImages` object at the top of the file (around line 19)
-3. Add the Google Drive URL to the appropriate project:
-
-```javascript
-const googleDriveImages = {
-    // Example:
-    'drywall-repair-1': 'https://drive.google.com/uc?id=YOUR_FILE_ID_HERE',
-    'drywall-basement-1': 'https://drive.google.com/uc?id=ANOTHER_FILE_ID',
-    // ... etc
-};
+```
+docs/gallery/images/
+├── drywall/
+│   ├── drywall-repair-1.jpg
+│   └── drywall-basement-1.jpg
+├── deck/
+│   ├── deck-restoration-1.jpg
+│   └── deck-board-replacement-1.jpg
+├── electrical/
+│   ├── electrical-kitchen-1.jpg
+│   └── electrical-ceiling-fan-1.jpg
+├── bathroom/
+│   ├── bathroom-tile-1.jpg
+│   └── bathroom-vanity-1.jpg
+└── painting/
+    ├── painting-interior-1.jpg
+    └── painting-exterior-1.jpg
 ```
 
+## How to Add Images
+
+### Step 1: Prepare Images
+- **Format**: JPG, PNG, or WebP
+- **Size**: Minimum 800px wide for best quality
+- **Optimization**: Compress images to keep under 2MB
+
+### Step 2: Upload to Correct Directory
+1. Navigate to the appropriate category folder
+2. Upload the image with the exact filename shown above
+3. The image will automatically appear on the gallery page
+
 ### Step 3: Available Image Slots
-The following IDs are available for images:
 
 **Drywall Projects:**
-- `drywall-repair-1` - Living Room Wall Repair
-- `drywall-basement-1` - Basement Finishing
+- `drywall-repair-1.jpg` - Living Room Wall Repair
+- `drywall-basement-1.jpg` - Basement Finishing
 
 **Deck Projects:**
-- `deck-restoration-1` - Complete Deck Restoration
-- `deck-board-replacement-1` - Deck Board Replacement
+- `deck-restoration-1.jpg` - Complete Deck Restoration
+- `deck-board-replacement-1.jpg` - Deck Board Replacement
 
 **Electrical Projects:**
-- `electrical-kitchen-1` - Kitchen Outlet Installation
-- `electrical-ceiling-fan-1` - Ceiling Fan Installation
+- `electrical-kitchen-1.jpg` - Kitchen Outlet Installation
+- `electrical-ceiling-fan-1.jpg` - Ceiling Fan Installation
 
 **Bathroom Projects:**
-- `bathroom-tile-1` - Shower Tile Replacement
-- `bathroom-vanity-1` - Vanity & Faucet Installation
+- `bathroom-tile-1.jpg` - Shower Tile Replacement
+- `bathroom-vanity-1.jpg` - Vanity & Faucet Installation
 
 **Painting Projects:**
-- `painting-interior-1` - Living Room Paint Job
-- `painting-exterior-1` - Exterior Trim Painting
+- `painting-interior-1.jpg` - Living Room Paint Job
+- `painting-exterior-1.jpg` - Exterior Trim Painting
 
-## Customer Instructions
-The gallery page now includes instructions for customers on how to share their photos:
+## Customer Process
 
-1. Upload photos to Google Drive
-2. Share with "Anyone with the link"
-3. Email the link to info@homehandymansolutions.com
-4. You'll add it to the gallery with their permission
+### For Customers:
+1. Take high-quality photos of completed project
+2. Email photos to info@homehandymansolutions.com
+3. Include project details (location, type of work, timeline)
+4. Company will process and upload images
+
+### For Website Administrators:
+1. Receive customer photos via email
+2. Optimize images (resize, compress)
+3. Rename to appropriate filename
+4. Upload to correct directory via FTP/file manager
+5. Images appear automatically on website
 
 ## Features
-- **Automatic Loading**: Images load automatically when the page loads
-- **Error Handling**: If an image fails to load, it shows an error message
-- **Placeholders**: Projects without images show "Image Coming Soon" placeholders
-- **Modal View**: Clicking images opens them in a larger modal view
-- **Responsive**: Works on mobile and desktop devices
-- **Filter System**: Images work with the existing category filter system
+
+- **No Code Changes**: Simply upload images with correct filenames
+- **Automatic Fallback**: Shows placeholder text when images aren't available
+- **Responsive Design**: Images scale properly on all devices
+- **Modal View**: Click images to view them larger
+- **Category Filtering**: Works with existing filter system
+- **Fast Loading**: Direct file serving, no external dependencies
+
+## Adding New Project Slots
+
+To add more projects (e.g., `drywall-repair-2.jpg`):
+
+1. **Add HTML**: Copy an existing project card in `gallery.html`
+2. **Update Image Path**: Change `src` to new filename
+3. **Update Content**: Modify project title, description, details
+4. **Upload Image**: Add the image file to the appropriate directory
 
 ## Troubleshooting
-- **Image not showing**: Check that the Google Drive link is set to "Anyone with the link"
-- **Wrong image format**: Make sure you're using the `uc?id=` format, not the regular sharing link
-- **Loading errors**: Check the browser console for specific error messages
 
-## Adding New Projects
-To add new project cards:
+- **Image not showing**: Check filename matches exactly (case-sensitive)
+- **Wrong size**: Verify image dimensions are adequate
+- **Slow loading**: Compress images to reduce file size
+- **Permission errors**: Ensure proper file permissions on server
 
-1. Add a new entry to the `googleDriveImages` object with a unique ID
-2. Create a new project card div with the corresponding ID in the `project-image` element
-3. Follow the existing structure and styling
+## File Management Tips
+
+- Keep image backups in a separate location
+- Use descriptive original filenames before renaming
+- Test images on different devices and screen sizes
+- Consider using WebP format for better compression
+- Maintain consistent aspect ratios for better layout
