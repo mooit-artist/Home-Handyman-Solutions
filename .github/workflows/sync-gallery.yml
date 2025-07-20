@@ -1,0 +1,81 @@
+name: Sync Gallery from Google Drive
+
+on:
+  # Scheduled sync (daily at 6 AM Central Time)
+  schedule:
+    - cron: '0 11 * * *'  # 11 UTC = 6 AM CDT/5 AM CST
+
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      force_sync:
+        description: 'Force full re-sync of all images'
+        required: false
+        default: false
+        type: boolean
+
+  # Trigger on push to main (for testing)
+  push:
+    branches: [ main ]
+    paths: [ '.github/workflows/sync-gallery.yml', 'scripts/sync-gallery.py' ]
+
+jobs:
+  sync-gallery:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client Pillow requests python-dotenv
+
+    - name: Create service account file
+      run: |
+        echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}' > service-account.json
+
+    - name: Run gallery sync
+      env:
+        GOOGLE_DRIVE_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}
+        FORCE_SYNC: ${{ github.event.inputs.force_sync || 'false' }}
+      run: |
+        python scripts/sync-gallery.py
+
+    - name: Clean up
+      run: |
+        rm -f service-account.json
+
+    - name: Check for changes
+      id: verify-changed-files
+      run: |
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "changed=true" >> $GITHUB_OUTPUT
+        else
+          echo "changed=false" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Commit and push changes
+      if: steps.verify-changed-files.outputs.changed == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "Gallery Sync Bot"
+        git add docs/gallery/images/
+        git commit -m "🖼️ Auto-sync gallery images from Google Drive"
+        git push
+
+    - name: Create sync summary
+      if: always()
+      run: |
+        echo "## Gallery Sync Summary" >> $GITHUB_STEP_SUMMARY
+        echo "- **Trigger:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Changes:** ${{ steps.verify-changed-files.outputs.changed }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Time:** $(date)" >> $GITHUB_STEP_SUMMARY

@@ -249,39 +249,52 @@
                 <p style="margin-bottom: 1rem; color: var(--slate-gray);">
                     We'd love to showcase your completed project! Here's how to share your photos with us:
                 </p>
-                <ol>
-                    <li>Take high-quality photos of your completed project</li>
-                    <li>Email the photos to us at <a href="mailto:info@homehandymansolutions.com" style="color: var(--soft-gold);">info@homehandymansolutions.com</a></li>
-                    <li>Include your project details (location, type of work, timeline)</li>
-                    <li>We'll add your photos to our gallery with your permission!</li>
-                </ol>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 1.5rem 0;">
+                    <div style="background: var(--white); padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="color: var(--dark-walnut); margin-bottom: 1rem;">📧 For Customers</h4>
+                        <ol style="margin: 0; padding-left: 1.2rem;">
+                            <li>Take high-quality photos of your completed project</li>
+                            <li>Email photos to <a href="mailto:info@homehandymansolutions.com" style="color: var(--soft-gold);">info@homehandymansolutions.com</a></li>
+                            <li>Include project details (location, type of work, timeline)</li>
+                            <li>We'll add them to our gallery with your permission!</li>
+                        </ol>
+                    </div>
+
+                    <div style="background: var(--white); padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="color: var(--dark-walnut); margin-bottom: 1rem;">🔐 For Business Owner</h4>
+                        <ol style="margin: 0; padding-left: 1.2rem;">
+                            <li>Upload photos to your <strong>secure Google Drive folder</strong></li>
+                            <li>Organize by category (drywall, deck, electrical, etc.)</li>
+                            <li>Gallery automatically syncs within 24 hours</li>
+                            <li>Manual sync available via GitHub Actions</li>
+                        </ol>
+                    </div>
+                </div>
+
                 <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--slate-gray); font-style: italic;">
-                    <strong>For best results:</strong> Use good lighting, show before/after views when possible, and include multiple angles of the completed work.
+                    <strong>Photo Tips:</strong> Use good lighting, show before/after views when possible, and include multiple angles of completed work.
                 </p>
 
                 <details style="margin-top: 1.5rem;">
-                    <summary style="color: var(--dark-walnut); font-weight: bold; cursor: pointer;">📁 Technical Details (For Developers)</summary>
+                    <summary style="color: var(--dark-walnut); font-weight: bold; cursor: pointer;">� Technical Implementation</summary>
                     <div style="margin-top: 1rem; padding: 1rem; background: var(--white); border-radius: 5px;">
-                        <p style="margin-bottom: 1rem; font-size: 0.9rem;">Images should be uploaded to the following directory structure:</p>
-                        <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-size: 0.8rem; overflow-x: auto;">docs/gallery/images/
-├── drywall/
-│   ├── drywall-repair-1.jpg
-│   └── drywall-basement-1.jpg
-├── deck/
-│   ├── deck-restoration-1.jpg
-│   └── deck-board-replacement-1.jpg
-├── electrical/
-│   ├── electrical-kitchen-1.jpg
-│   └── electrical-ceiling-fan-1.jpg
-├── bathroom/
-│   ├── bathroom-tile-1.jpg
-│   └── bathroom-vanity-1.jpg
-└── painting/
-    ├── painting-interior-1.jpg
-    └── painting-exterior-1.jpg</pre>
-                        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--slate-gray);">
-                            Supported formats: <code>.jpg</code>, <code>.png</code>, <code>.webp</code> | Recommended size: 800px width minimum
-                        </p>
+                        <p style="margin-bottom: 1rem; font-size: 0.9rem;">This gallery uses a hybrid approach:</p>
+                        <ul style="margin-bottom: 1rem; color: var(--slate-gray); line-height: 1.6;">
+                            <li><strong>Static Frontend:</strong> Fast, reliable gallery display</li>
+                            <li><strong>Google Drive Storage:</strong> Secure, authenticated uploads</li>
+                            <li><strong>GitHub Actions:</strong> Automated sync from Drive to static files</li>
+                            <li><strong>Auto-optimization:</strong> Image resizing and compression</li>
+                        </ul>
+                        <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-size: 0.8rem; overflow-x: auto;">Google Drive Structure:
+📁 Gallery-Images/
+├── 📁 drywall/
+├── 📁 deck/
+├── 📁 electrical/
+├── 📁 bathroom/
+└── 📁 painting/
+
+→ Syncs to → docs/gallery/images/</pre>
                     </div>
                 </details>
             </div>
