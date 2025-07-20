@@ -32,7 +32,7 @@
         <section style="padding-top: 2rem;">
             <h2>Pay Your Bill Online</h2>
             <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem auto; font-size: 1.1rem; color: var(--slate-gray);">
-                Pay your Home Handyman Solutions LLC invoice quickly and securely online. 
+                Pay your Home Handyman Solutions LLC invoice quickly and securely online.
                 We accept all major credit cards, debit cards, and bank transfers.
             </p>
         </section>
@@ -68,22 +68,22 @@
                         <label for="invoice-number">Invoice Number *</label>
                         <input type="text" id="invoice-number" name="invoice-number" required placeholder="e.g., INV-2025-001">
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="customer-name">Customer Name *</label>
                         <input type="text" id="customer-name" name="customer-name" required placeholder="As shown on invoice">
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="email">Email Address *</label>
                         <input type="email" id="email" name="email" required placeholder="For payment confirmation">
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="amount">Payment Amount *</label>
                         <input type="number" id="amount" name="amount" step="0.01" min="0.01" required placeholder="0.00">
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="payment-method">Payment Method *</label>
                         <select id="payment-method" name="payment-method" required style="width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 5px; font-size: 1rem;">
@@ -96,45 +96,45 @@
                             <option value="google-pay">Google Pay</option>
                         </select>
                     </div>
-                    
+
                     <div id="card-details" style="display: none;">
                         <div class="form-group">
                             <label for="card-number">Card Number *</label>
                             <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456" maxlength="19">
                         </div>
-                        
+
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                             <div class="form-group">
                                 <label for="expiry-date">Expiry Date *</label>
                                 <input type="text" id="expiry-date" name="expiry-date" placeholder="MM/YY" maxlength="5">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="cvv">CVV *</label>
                                 <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="4">
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="cardholder-name">Cardholder Name *</label>
                             <input type="text" id="cardholder-name" name="cardholder-name" placeholder="Name on card">
                         </div>
                     </div>
-                    
+
                     <div id="billing-address" style="display: none;">
                         <h4 style="margin: 2rem 0 1rem 0; color: var(--dark-walnut);">Billing Address</h4>
-                        
+
                         <div class="form-group">
                             <label for="address">Street Address *</label>
                             <input type="text" id="address" name="address" placeholder="123 Main Street">
                         </div>
-                        
+
                         <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1rem;">
                             <div class="form-group">
                                 <label for="city">City *</label>
                                 <input type="text" id="city" name="city" placeholder="Omaha">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="state">State *</label>
                                 <select id="state" name="state" style="width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 5px; font-size: 1rem;">
@@ -143,19 +143,19 @@
                                     <option value="IA">Iowa</option>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="zip">ZIP Code *</label>
                                 <input type="text" id="zip" name="zip" placeholder="68102" maxlength="10">
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="notes">Payment Notes (Optional)</label>
                         <textarea id="notes" name="notes" rows="3" placeholder="Reference information or special instructions..."></textarea>
                     </div>
-                    
+
                     <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 10px; margin: 2rem 0;">
                         <h4 style="color: var(--dark-walnut); margin-bottom: 1rem;">Payment Summary</h4>
                         <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
@@ -172,21 +172,21 @@
                             <span id="total-amount">$0.00</span>
                         </div>
                     </div>
-                    
+
                     <div style="background: var(--white); padding: 1.5rem; border-radius: 10px; border: 2px solid var(--soft-gold); margin: 2rem 0;">
                         <label style="display: flex; align-items: center; cursor: pointer;">
                             <input type="checkbox" id="terms-agree" required style="margin-right: 0.5rem;">
                             <span style="font-size: 0.9rem;">
-                                I agree to the <a href="legal.html" style="color: var(--soft-gold); text-decoration: underline;">Terms of Service</a> 
+                                I agree to the <a href="legal.html" style="color: var(--soft-gold); text-decoration: underline;">Terms of Service</a>
                                 and authorize Home Handyman Solutions LLC to charge the above amount to my selected payment method.
                             </span>
                         </label>
                     </div>
-                    
+
                     <button type="submit" class="btn" style="width: 100%; font-size: 1.1rem; padding: 15px;">
                         🔒 Process Secure Payment
                     </button>
-                    
+
                     <p style="font-size: 0.9rem; color: var(--slate-gray); margin-top: 1rem; text-align: center;">
                         🔐 Your payment information is encrypted and secure. We use industry-standard SSL encryption.
                     </p>
@@ -195,7 +195,7 @@
 
             <div class="contact-info">
                 <h3>💡 Payment Information</h3>
-                
+
                 <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem;">
                     <h4 style="color: var(--dark-walnut); margin-bottom: 1rem;">Payment Processing</h4>
                     <ul style="list-style: none; padding: 0;">
@@ -205,14 +205,14 @@
                         <li>✓ Account updated within 24 hours</li>
                     </ul>
                 </div>
-                
+
                 <div style="background: var(--white); padding: 1.5rem; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 2rem;">
                     <h4 style="color: var(--dark-walnut); margin-bottom: 1rem;">Need Help?</h4>
                     <p style="margin-bottom: 0.5rem;"><span class="icon">📞</span> <strong>Phone:</strong> (402) 555-1234</p>
-                    <p style="margin-bottom: 0.5rem;"><span class="icon">📧</span> <strong>Email:</strong> billing@handymanservicesllc.com</p>
+                    <p style="margin-bottom: 0.5rem;"><span class="icon">📧</span> <strong>Email:</strong> billing@homehandymansolutionsllc.com</p>
                     <p style="margin-bottom: 0.5rem;"><span class="icon">💬</span> <strong>Hours:</strong> Mon-Fri 8AM-5PM</p>
                 </div>
-                
+
                 <div style="background: var(--soft-gold); color: var(--dark-walnut); padding: 1.5rem; border-radius: 10px;">
                     <h4 style="margin-bottom: 1rem;">💳 Processing Fees</h4>
                     <ul style="list-style: none; padding: 0; font-size: 0.9rem;">
@@ -227,7 +227,7 @@
 
         <section style="background-color: var(--light-gray); margin: 4rem -2rem 0; padding: 4rem 2rem;">
             <h2>Other Payment Options</h2>
-            
+
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
                 <div style="background: var(--white); padding: 2rem; border-radius: 10px; text-align: center;">
                     <div style="font-size: 3rem; color: var(--soft-gold); margin-bottom: 1rem;">📧</div>
@@ -239,7 +239,7 @@
                         Omaha, NE 68102
                     </p>
                 </div>
-                
+
                 <div style="background: var(--white); padding: 2rem; border-radius: 10px; text-align: center;">
                     <div style="font-size: 3rem; color: var(--soft-gold); margin-bottom: 1rem;">📞</div>
                     <h3>Phone Payment</h3>
@@ -247,7 +247,7 @@
                     <p style="font-size: 1.1rem; font-weight: bold; color: var(--dark-walnut);">(402) 555-1234</p>
                     <p style="font-size: 0.9rem; color: var(--slate-gray);">Mon-Fri 8AM-5PM</p>
                 </div>
-                
+
                 <div style="background: var(--white); padding: 2rem; border-radius: 10px; text-align: center;">
                     <div style="font-size: 3rem; color: var(--soft-gold); margin-bottom: 1rem;">🤝</div>
                     <h3>In-Person Payment</h3>
@@ -287,7 +287,7 @@
         // Show/hide payment details based on method
         paymentMethodSelect.addEventListener('change', function() {
             const method = this.value;
-            
+
             if (method === 'credit-card' || method === 'debit-card') {
                 cardDetails.style.display = 'block';
                 billingAddress.style.display = 'block';
@@ -340,7 +340,7 @@
         // Form submission
         document.getElementById('payment-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             // In a real implementation, this would process the payment
             alert('Payment processing would be handled here. This is a demo form.\n\nIn production, this would securely process your payment and send a confirmation email.');
         });
