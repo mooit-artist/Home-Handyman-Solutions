@@ -8,7 +8,62 @@
     <title>Our Work - Home Handyman Solutions LLC</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect fill='%233c2e26' width='32' height='32'/><path fill='%23d4af37' d='M8 12h16v2H8zm0 4h16v2H8zm0 4h12v2H8z'/></svg>">
-    <style>
+    <script>
+        // Google Drive Image Configuration
+        // To add images from Google Drive:
+        // 1. Upload image to Google Drive
+        // 2. Right-click -> Get link -> Change to "Anyone with the link"
+        // 3. Copy the file ID from the sharing URL (between /d/ and /view)
+        // 4. Add to the googleDriveImages object below using format: https://drive.google.com/uc?id=FILE_ID
+
+        const googleDriveImages = {
+            // Drywall Projects
+            'drywall-repair-1': '', // Add Google Drive image URL here
+            'drywall-basement-1': '', // Add Google Drive image URL here
+
+            // Deck Projects
+            'deck-restoration-1': '', // Add Google Drive image URL here
+            'deck-board-replacement-1': '', // Add Google Drive image URL here
+
+            // Electrical Projects
+            'electrical-kitchen-1': '', // Add Google Drive image URL here
+            'electrical-ceiling-fan-1': '', // Add Google Drive image URL here
+
+            // Bathroom Projects
+            'bathroom-tile-1': '', // Add Google Drive image URL here
+            'bathroom-vanity-1': '', // Add Google Drive image URL here
+
+            // Painting Projects
+            'painting-interior-1': '', // Add Google Drive image URL here
+            'painting-exterior-1': '' // Add Google Drive image URL here
+        };
+
+        // Function to load images from Google Drive
+        function loadGoogleDriveImages() {
+            Object.keys(googleDriveImages).forEach(imageId => {
+                const imageElement = document.getElementById(imageId);
+                const imageUrl = googleDriveImages[imageId];
+
+                if (imageElement && imageUrl && imageUrl.trim() !== '') {
+                    // Create img element
+                    const img = document.createElement('img');
+                    img.src = imageUrl;
+                    img.alt = 'Project Image';
+                    img.onerror = function() {
+                        // If image fails to load, show placeholder
+                        imageElement.innerHTML = '<div class="image-placeholder">📸 Image Loading Error<br><small>Check Google Drive permissions</small></div>';
+                    };
+
+                    // Clear existing content and add image
+                    imageElement.innerHTML = '';
+                    imageElement.appendChild(img);
+                } else if (imageElement) {
+                    // Show placeholder if no URL is configured
+                    imageElement.innerHTML = '<div class="image-placeholder">📸 Image Coming Soon<br><small>Upload to Google Drive</small></div>';
+                }
+            });
+        }
+    </script>
         /* Gallery-specific styles */
         .gallery-container {
             display: grid;
@@ -16,7 +71,7 @@
             gap: 2rem;
             margin-top: 2rem;
         }
-        
+
         .project-card {
             background: var(--white);
             border-radius: 10px;
@@ -24,12 +79,12 @@
             box-shadow: 0 4px 15px var(--shadow);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
+
         .project-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px var(--shadow);
         }
-        
+
         .project-image {
             width: 100%;
             height: 250px;
@@ -40,19 +95,60 @@
             color: var(--slate-gray);
             font-size: 1.2rem;
             border-bottom: 3px solid var(--soft-gold);
+            overflow: hidden;
+            position: relative;
         }
-        
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .project-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .image-placeholder {
+            text-align: center;
+            color: var(--slate-gray);
+            font-size: 1rem;
+        }
+
+        .gdrive-info {
+            background: var(--light-gray);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            border-left: 4px solid var(--soft-gold);
+        }
+
+        .gdrive-info h3 {
+            color: var(--dark-walnut);
+            margin-bottom: 1rem;
+        }
+
+        .gdrive-info ol {
+            color: var(--slate-gray);
+            line-height: 1.6;
+        }
+
+        .gdrive-info ol li {
+            margin-bottom: 0.5rem;
+        }
+
         .project-info {
             padding: 1.5rem;
         }
-        
+
         .project-title {
             font-size: 1.3rem;
             color: var(--dark-walnut);
             margin-bottom: 0.5rem;
             font-weight: bold;
         }
-        
+
         .project-category {
             color: var(--soft-gold);
             font-size: 0.9rem;
@@ -60,13 +156,13 @@
             text-transform: uppercase;
             margin-bottom: 1rem;
         }
-        
+
         .project-description {
             color: var(--slate-gray);
             line-height: 1.6;
             margin-bottom: 1rem;
         }
-        
+
         .project-details {
             display: flex;
             justify-content: space-between;
@@ -74,7 +170,7 @@
             font-size: 0.9rem;
             color: var(--slate-gray);
         }
-        
+
         .filter-buttons {
             display: flex;
             justify-content: center;
@@ -82,7 +178,7 @@
             margin: 2rem 0;
             flex-wrap: wrap;
         }
-        
+
         .filter-btn {
             background: var(--light-gray);
             color: var(--slate-gray);
@@ -94,14 +190,14 @@
             font-size: 0.9rem;
             font-weight: 500;
         }
-        
+
         .filter-btn:hover,
         .filter-btn.active {
             background: var(--soft-gold);
             color: var(--dark-walnut);
             border-color: var(--soft-gold);
         }
-        
+
         .modal {
             display: none;
             position: fixed;
@@ -113,7 +209,7 @@
             background-color: rgba(0, 0, 0, 0.9);
             overflow: auto;
         }
-        
+
         .modal-content {
             margin: 5% auto;
             display: block;
@@ -123,7 +219,7 @@
             border-radius: 10px;
             padding: 2rem;
         }
-        
+
         .close {
             color: var(--white);
             float: right;
@@ -134,16 +230,16 @@
             right: 35px;
             top: 15px;
         }
-        
+
         .close:hover {
             color: var(--soft-gold);
         }
-        
+
         @media (max-width: 768px) {
             .gallery-container {
                 grid-template-columns: 1fr;
             }
-            
+
             .filter-buttons {
                 flex-direction: column;
                 align-items: center;
@@ -173,10 +269,27 @@
     <main>
         <section style="padding-top: 2rem;">
             <h2>Our Work Gallery</h2>
-            <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem auto; font-size: 1.1rem; color: var(--slate-gray);">
-                Take a look at some of our completed projects across Nebraska and Iowa. 
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 1rem auto; font-size: 1.1rem; color: var(--slate-gray);">
+                Take a look at some of our completed projects across Nebraska and Iowa.
                 Each project represents our commitment to quality craftsmanship and customer satisfaction.
             </p>
+
+            <div class="gdrive-info">
+                <h3>📸 Share Your Project Photos</h3>
+                <p style="margin-bottom: 1rem; color: var(--slate-gray);">
+                    We'd love to showcase your completed project! Here's how to share your photos with us:
+                </p>
+                <ol>
+                    <li>Upload your project photos to <strong>Google Drive</strong></li>
+                    <li>Right-click the photo → Select <strong>"Get link"</strong></li>
+                    <li>Change sharing to <strong>"Anyone with the link"</strong></li>
+                    <li>Copy and email the link to us at <a href="mailto:info@homehandymansolutions.com" style="color: var(--soft-gold);">info@homehandymansolutions.com</a></li>
+                    <li>We'll add it to our gallery with your permission!</li>
+                </ol>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--slate-gray); font-style: italic;">
+                    Don't have Google Drive? No problem! You can also email photos directly to us, and we'll handle the upload.
+                </p>
+            </div>
         </section>
 
         <section>
@@ -192,14 +305,14 @@
             <div class="gallery-container">
                 <!-- Drywall Projects -->
                 <div class="project-card" data-category="drywall">
-                    <div class="project-image">
-                        📸 Drywall Repair & Texture Match
+                    <div class="project-image" id="drywall-repair-1">
+                        <div class="image-placeholder">📸 Drywall Repair & Texture Match</div>
                     </div>
                     <div class="project-info">
                         <div class="project-category">Drywall Services</div>
                         <div class="project-title">Living Room Wall Repair</div>
                         <div class="project-description">
-                            Complete drywall repair and texture matching after water damage. 
+                            Complete drywall repair and texture matching after water damage.
                             Seamless integration with existing wall surface and professional finish.
                         </div>
                         <div class="project-details">
@@ -210,14 +323,14 @@
                 </div>
 
                 <div class="project-card" data-category="drywall">
-                    <div class="project-image">
-                        📸 Basement Drywall Installation
+                    <div class="project-image" id="drywall-basement-1">
+                        <div class="image-placeholder">📸 Basement Drywall Installation</div>
                     </div>
                     <div class="project-info">
                         <div class="project-category">Drywall Services</div>
                         <div class="project-title">Basement Finishing</div>
                         <div class="project-description">
-                            Full basement drywall installation with insulation, taping, mudding, 
+                            Full basement drywall installation with insulation, taping, mudding,
                             and smooth finish ready for painting.
                         </div>
                         <div class="project-details">
@@ -229,14 +342,14 @@
 
                 <!-- Deck Projects -->
                 <div class="project-card" data-category="deck">
-                    <div class="project-image">
-                        📸 Deck Restoration Before/After
+                    <div class="project-image" id="deck-restoration-1">
+                        <div class="image-placeholder">📸 Deck Restoration Before/After</div>
                     </div>
                     <div class="project-info">
                         <div class="project-category">Deck Repair</div>
                         <div class="project-title">Complete Deck Restoration</div>
                         <div class="project-description">
-                            Full deck restoration including board replacement, structural reinforcement, 
+                            Full deck restoration including board replacement, structural reinforcement,
                             new railings, and professional staining.
                         </div>
                         <div class="project-details">
@@ -247,14 +360,14 @@
                 </div>
 
                 <div class="project-card" data-category="deck">
-                    <div class="project-image">
-                        📸 Deck Board Replacement
+                    <div class="project-image" id="deck-board-replacement-1">
+                        <div class="image-placeholder">📸 Deck Board Replacement</div>
                     </div>
                     <div class="project-info">
                         <div class="project-category">Deck Repair</div>
                         <div class="project-title">Deck Board Replacement</div>
                         <div class="project-description">
-                            Replaced damaged deck boards with matching composite material. 
+                            Replaced damaged deck boards with matching composite material.
                             Ensured proper spacing and secure installation.
                         </div>
                         <div class="project-details">
@@ -266,14 +379,14 @@
 
                 <!-- Electrical Projects -->
                 <div class="project-card" data-category="electrical">
-                    <div class="project-image">
-                        📸 Electrical Panel Upgrade
+                    <div class="project-image" id="electrical-kitchen-1">
+                        <div class="image-placeholder">📸 Electrical Panel Upgrade</div>
                     </div>
                     <div class="project-info">
                         <div class="project-category">Electrical Work</div>
                         <div class="project-title">Kitchen Outlet Installation</div>
                         <div class="project-description">
-                            Installed new GFCI outlets in kitchen area with proper grounding. 
+                            Installed new GFCI outlets in kitchen area with proper grounding.
                             All work completed to code with permits.
                         </div>
                         <div class="project-details">
@@ -284,14 +397,14 @@
                 </div>
 
                 <div class="project-card" data-category="electrical">
-                    <div class="project-image">
-                        📸 Ceiling Fan Installation
+                    <div class="project-image" id="electrical-ceiling-fan-1">
+                        <div class="image-placeholder">📸 Ceiling Fan Installation</div>
                     </div>
                     <div class="project-info">
                         <div class="project-category">Electrical Work</div>
                         <div class="project-title">Ceiling Fan Installation</div>
                         <div class="project-description">
-                            Professional ceiling fan installation with proper electrical box 
+                            Professional ceiling fan installation with proper electrical box
                             reinforcement and wall switch installation.
                         </div>
                         <div class="project-details">
@@ -303,14 +416,14 @@
 
                 <!-- Bathroom Projects -->
                 <div class="project-card" data-category="bathroom">
-                    <div class="project-image">
-                        📸 Bathroom Tile Repair
+                    <div class="project-image" id="bathroom-tile-1">
+                        <div class="image-placeholder">📸 Bathroom Tile Repair</div>
                     </div>
                     <div class="project-info">
                         <div class="project-category">Bathroom Repair</div>
                         <div class="project-title">Shower Tile Replacement</div>
                         <div class="project-description">
-                            Replaced damaged shower tiles with perfect color match. 
+                            Replaced damaged shower tiles with perfect color match.
                             Proper waterproofing and grouting for long-lasting results.
                         </div>
                         <div class="project-details">
@@ -321,14 +434,14 @@
                 </div>
 
                 <div class="project-card" data-category="bathroom">
-                    <div class="project-image">
-                        📸 Bathroom Vanity Installation
+                    <div class="project-image" id="bathroom-vanity-1">
+                        <div class="image-placeholder">📸 Bathroom Vanity Installation</div>
                     </div>
                     <div class="project-info">
                         <div class="project-category">Bathroom Repair</div>
                         <div class="project-title">Vanity & Faucet Installation</div>
                         <div class="project-description">
-                            Complete bathroom vanity installation with new faucet, 
+                            Complete bathroom vanity installation with new faucet,
                             plumbing connections, and mirror mounting.
                         </div>
                         <div class="project-details">
@@ -340,14 +453,14 @@
 
                 <!-- Painting Projects -->
                 <div class="project-card" data-category="painting">
-                    <div class="project-image">
-                        📸 Interior Painting Project
+                    <div class="project-image" id="painting-interior-1">
+                        <div class="image-placeholder">📸 Interior Painting Project</div>
                     </div>
                     <div class="project-info">
                         <div class="project-category">Interior Painting</div>
                         <div class="project-title">Living Room Paint Job</div>
                         <div class="project-description">
-                            Professional interior painting with proper prep work, 
+                            Professional interior painting with proper prep work,
                             primer application, and two coats of premium paint.
                         </div>
                         <div class="project-details">
@@ -358,14 +471,14 @@
                 </div>
 
                 <div class="project-card" data-category="painting">
-                    <div class="project-image">
-                        📸 Exterior Touch-Up Paint
+                    <div class="project-image" id="painting-exterior-1">
+                        <div class="image-placeholder">📸 Exterior Touch-Up Paint</div>
                     </div>
                     <div class="project-info">
                         <div class="project-category">Exterior Painting</div>
                         <div class="project-title">Exterior Trim Painting</div>
                         <div class="project-description">
-                            Exterior trim painting with weather-resistant paint. 
+                            Exterior trim painting with weather-resistant paint.
                             Proper surface preparation and protection of landscaping.
                         </div>
                         <div class="project-details">
@@ -383,25 +496,25 @@
                 <div style="background: var(--white); padding: 2rem; border-radius: 10px; text-align: center;">
                     <div style="font-size: 2rem; color: var(--soft-gold); margin-bottom: 1rem;">⭐⭐⭐⭐⭐</div>
                     <p style="font-style: italic; margin-bottom: 1rem;">
-                        "Excellent drywall work! They perfectly matched the texture and you can't 
+                        "Excellent drywall work! They perfectly matched the texture and you can't
                         even tell where the repair was made. Very professional and clean."
                     </p>
                     <p style="font-weight: bold; color: var(--dark-walnut);">- Sarah M., Omaha</p>
                 </div>
-                
+
                 <div style="background: var(--white); padding: 2rem; border-radius: 10px; text-align: center;">
                     <div style="font-size: 2rem; color: var(--soft-gold); margin-bottom: 1rem;">⭐⭐⭐⭐⭐</div>
                     <p style="font-style: italic; margin-bottom: 1rem;">
-                        "Our deck looks brand new! The restoration exceeded our expectations. 
+                        "Our deck looks brand new! The restoration exceeded our expectations.
                         Fair pricing and completed on time."
                     </p>
                     <p style="font-weight: bold; color: var(--dark-walnut);">- Mike T., Council Bluffs</p>
                 </div>
-                
+
                 <div style="background: var(--white); padding: 2rem; border-radius: 10px; text-align: center;">
                     <div style="font-size: 2rem; color: var(--soft-gold); margin-bottom: 1rem;">⭐⭐⭐⭐⭐</div>
                     <p style="font-style: italic; margin-bottom: 1rem;">
-                        "Quick electrical work with permits handled properly. 
+                        "Quick electrical work with permits handled properly.
                         Professional service and explanation of all work performed."
                     </p>
                     <p style="font-weight: bold; color: var(--dark-walnut);">- Jennifer L., Bellevue</p>
@@ -438,6 +551,11 @@
     </footer>
 
     <script>
+        // Load Google Drive images when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadGoogleDriveImages();
+        });
+
         // Mobile menu toggle
         document.querySelector('.mobile-menu').addEventListener('click', function() {
             const nav = document.querySelector('nav ul');
@@ -469,11 +587,29 @@
 
         // Modal functionality
         const modal = document.getElementById('imageModal');
-        const projectImages = document.querySelectorAll('.project-image');
+        const projectImageElements = document.querySelectorAll('.project-image');
         const closeModal = document.querySelector('.close');
 
-        projectImages.forEach(image => {
-            image.addEventListener('click', () => {
+        projectImageElements.forEach(imageElement => {
+            imageElement.addEventListener('click', () => {
+                const imageId = imageElement.id;
+                const modalContent = document.getElementById('modal-image-placeholder');
+
+                // Check if this image has a Google Drive URL
+                if (googleDriveImages[imageId] && googleDriveImages[imageId].trim() !== '') {
+                    modalContent.innerHTML = `
+                        <img src="${googleDriveImages[imageId]}" alt="Project Image" style="max-width: 100%; max-height: 70vh; object-fit: contain;">
+                    `;
+                } else {
+                    modalContent.innerHTML = `
+                        <h3>Project Image</h3>
+                        <p>This project image will be available once uploaded to Google Drive.</p>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--slate-gray);">
+                            Contact us to share your project photos!
+                        </p>
+                    `;
+                }
+
                 modal.style.display = 'block';
             });
         });
