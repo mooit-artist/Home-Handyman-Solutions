@@ -1,0 +1,10 @@
+# Gallery Sync Requirements
+# Dependencies for the Google Drive to Static Gallery sync script
+
+google-auth>=2.17.0
+google-auth-oauthlib>=1.0.0
+google-auth-httplib2>=0.2.0
+google-api-python-client>=2.88.0
+Pillow>=10.0.0
+requests>=2.31.0
+python-dotenv>=1.0.0

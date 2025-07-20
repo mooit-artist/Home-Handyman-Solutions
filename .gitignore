@@ -18,6 +18,10 @@ config/api-keys.json
 **/secrets.*
 **/.env*
 
+# Google Service Account (contains sensitive credentials)
+service-account.json
+scripts/service-account.json
+
 # Database files
 *.db
 *.sqlite
