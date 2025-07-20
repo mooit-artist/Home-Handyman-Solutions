@@ -8,62 +8,7 @@
     <title>Our Work - Home Handyman Solutions LLC</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect fill='%233c2e26' width='32' height='32'/><path fill='%23d4af37' d='M8 12h16v2H8zm0 4h16v2H8zm0 4h12v2H8z'/></svg>">
-    <script>
-        // Google Drive Image Configuration
-        // To add images from Google Drive:
-        // 1. Upload image to Google Drive
-        // 2. Right-click -> Get link -> Change to "Anyone with the link"
-        // 3. Copy the file ID from the sharing URL (between /d/ and /view)
-        // 4. Add to the googleDriveImages object below using format: https://drive.google.com/uc?id=FILE_ID
-
-        const googleDriveImages = {
-            // Drywall Projects
-            'drywall-repair-1': '', // Add Google Drive image URL here
-            'drywall-basement-1': '', // Add Google Drive image URL here
-
-            // Deck Projects
-            'deck-restoration-1': '', // Add Google Drive image URL here
-            'deck-board-replacement-1': '', // Add Google Drive image URL here
-
-            // Electrical Projects
-            'electrical-kitchen-1': '', // Add Google Drive image URL here
-            'electrical-ceiling-fan-1': '', // Add Google Drive image URL here
-
-            // Bathroom Projects
-            'bathroom-tile-1': '', // Add Google Drive image URL here
-            'bathroom-vanity-1': '', // Add Google Drive image URL here
-
-            // Painting Projects
-            'painting-interior-1': '', // Add Google Drive image URL here
-            'painting-exterior-1': '' // Add Google Drive image URL here
-        };
-
-        // Function to load images from Google Drive
-        function loadGoogleDriveImages() {
-            Object.keys(googleDriveImages).forEach(imageId => {
-                const imageElement = document.getElementById(imageId);
-                const imageUrl = googleDriveImages[imageId];
-
-                if (imageElement && imageUrl && imageUrl.trim() !== '') {
-                    // Create img element
-                    const img = document.createElement('img');
-                    img.src = imageUrl;
-                    img.alt = 'Project Image';
-                    img.onerror = function() {
-                        // If image fails to load, show placeholder
-                        imageElement.innerHTML = '<div class="image-placeholder">📸 Image Loading Error<br><small>Check Google Drive permissions</small></div>';
-                    };
-
-                    // Clear existing content and add image
-                    imageElement.innerHTML = '';
-                    imageElement.appendChild(img);
-                } else if (imageElement) {
-                    // Show placeholder if no URL is configured
-                    imageElement.innerHTML = '<div class="image-placeholder">📸 Image Coming Soon<br><small>Upload to Google Drive</small></div>';
-                }
-            });
-        }
-    </script>
+    <style>
         /* Gallery-specific styles */
         .gallery-container {
             display: grid;
@@ -104,19 +49,36 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s ease;
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
         }
 
         .project-image:hover img {
             transform: scale(1.05);
         }
 
+        /* Show placeholder when image fails to load */
+        .project-image img:not([src]),
+        .project-image img[src=""] {
+            display: none;
+        }
+
         .image-placeholder {
             text-align: center;
             color: var(--slate-gray);
             font-size: 1rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            z-index: 0;
         }
 
-        .gdrive-info {
+        .upload-info {
             background: var(--light-gray);
             padding: 2rem;
             border-radius: 10px;
@@ -124,18 +86,26 @@
             border-left: 4px solid var(--soft-gold);
         }
 
-        .gdrive-info h3 {
+        .upload-info h3 {
             color: var(--dark-walnut);
             margin-bottom: 1rem;
         }
 
-        .gdrive-info ol {
+        .upload-info ol {
             color: var(--slate-gray);
             line-height: 1.6;
         }
 
-        .gdrive-info ol li {
+        .upload-info ol li {
             margin-bottom: 0.5rem;
+        }
+
+        .upload-info code {
+            background: var(--white);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
         }
 
         .project-info {
@@ -274,21 +244,46 @@
                 Each project represents our commitment to quality craftsmanship and customer satisfaction.
             </p>
 
-            <div class="gdrive-info">
+            <div class="upload-info">
                 <h3>📸 Share Your Project Photos</h3>
                 <p style="margin-bottom: 1rem; color: var(--slate-gray);">
                     We'd love to showcase your completed project! Here's how to share your photos with us:
                 </p>
                 <ol>
-                    <li>Upload your project photos to <strong>Google Drive</strong></li>
-                    <li>Right-click the photo → Select <strong>"Get link"</strong></li>
-                    <li>Change sharing to <strong>"Anyone with the link"</strong></li>
-                    <li>Copy and email the link to us at <a href="mailto:info@homehandymansolutions.com" style="color: var(--soft-gold);">info@homehandymansolutions.com</a></li>
-                    <li>We'll add it to our gallery with your permission!</li>
+                    <li>Take high-quality photos of your completed project</li>
+                    <li>Email the photos to us at <a href="mailto:info@homehandymansolutions.com" style="color: var(--soft-gold);">info@homehandymansolutions.com</a></li>
+                    <li>Include your project details (location, type of work, timeline)</li>
+                    <li>We'll add your photos to our gallery with your permission!</li>
                 </ol>
                 <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--slate-gray); font-style: italic;">
-                    Don't have Google Drive? No problem! You can also email photos directly to us, and we'll handle the upload.
+                    <strong>For best results:</strong> Use good lighting, show before/after views when possible, and include multiple angles of the completed work.
                 </p>
+
+                <details style="margin-top: 1.5rem;">
+                    <summary style="color: var(--dark-walnut); font-weight: bold; cursor: pointer;">📁 Technical Details (For Developers)</summary>
+                    <div style="margin-top: 1rem; padding: 1rem; background: var(--white); border-radius: 5px;">
+                        <p style="margin-bottom: 1rem; font-size: 0.9rem;">Images should be uploaded to the following directory structure:</p>
+                        <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-size: 0.8rem; overflow-x: auto;">docs/gallery/images/
+├── drywall/
+│   ├── drywall-repair-1.jpg
+│   └── drywall-basement-1.jpg
+├── deck/
+│   ├── deck-restoration-1.jpg
+│   └── deck-board-replacement-1.jpg
+├── electrical/
+│   ├── electrical-kitchen-1.jpg
+│   └── electrical-ceiling-fan-1.jpg
+├── bathroom/
+│   ├── bathroom-tile-1.jpg
+│   └── bathroom-vanity-1.jpg
+└── painting/
+    ├── painting-interior-1.jpg
+    └── painting-exterior-1.jpg</pre>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--slate-gray);">
+                            Supported formats: <code>.jpg</code>, <code>.png</code>, <code>.webp</code> | Recommended size: 800px width minimum
+                        </p>
+                    </div>
+                </details>
             </div>
         </section>
 
@@ -305,8 +300,9 @@
             <div class="gallery-container">
                 <!-- Drywall Projects -->
                 <div class="project-card" data-category="drywall">
-                    <div class="project-image" id="drywall-repair-1">
-                        <div class="image-placeholder">📸 Drywall Repair & Texture Match</div>
+                    <div class="project-image">
+                        <img src="gallery/images/drywall/drywall-repair-1.jpg" alt="Drywall Repair & Texture Match">
+                        <div class="image-placeholder">📸 Drywall Repair & Texture Match<br><small>Photo coming soon</small></div>
                     </div>
                     <div class="project-info">
                         <div class="project-category">Drywall Services</div>
@@ -323,8 +319,9 @@
                 </div>
 
                 <div class="project-card" data-category="drywall">
-                    <div class="project-image" id="drywall-basement-1">
-                        <div class="image-placeholder">📸 Basement Drywall Installation</div>
+                    <div class="project-image">
+                        <img src="gallery/images/drywall/drywall-basement-1.jpg" alt="Basement Drywall Installation">
+                        <div class="image-placeholder">📸 Basement Drywall Installation<br><small>Photo coming soon</small></div>
                     </div>
                     <div class="project-info">
                         <div class="project-category">Drywall Services</div>
@@ -342,8 +339,9 @@
 
                 <!-- Deck Projects -->
                 <div class="project-card" data-category="deck">
-                    <div class="project-image" id="deck-restoration-1">
-                        <div class="image-placeholder">📸 Deck Restoration Before/After</div>
+                    <div class="project-image">
+                        <img src="gallery/images/deck/deck-restoration-1.jpg" alt="Deck Restoration Before/After">
+                        <div class="image-placeholder">📸 Deck Restoration Before/After<br><small>Photo coming soon</small></div>
                     </div>
                     <div class="project-info">
                         <div class="project-category">Deck Repair</div>
@@ -360,8 +358,9 @@
                 </div>
 
                 <div class="project-card" data-category="deck">
-                    <div class="project-image" id="deck-board-replacement-1">
-                        <div class="image-placeholder">📸 Deck Board Replacement</div>
+                    <div class="project-image">
+                        <img src="gallery/images/deck/deck-board-replacement-1.jpg" alt="Deck Board Replacement">
+                        <div class="image-placeholder">📸 Deck Board Replacement<br><small>Photo coming soon</small></div>
                     </div>
                     <div class="project-info">
                         <div class="project-category">Deck Repair</div>
@@ -379,8 +378,9 @@
 
                 <!-- Electrical Projects -->
                 <div class="project-card" data-category="electrical">
-                    <div class="project-image" id="electrical-kitchen-1">
-                        <div class="image-placeholder">📸 Electrical Panel Upgrade</div>
+                    <div class="project-image">
+                        <img src="gallery/images/electrical/electrical-kitchen-1.jpg" alt="Kitchen Outlet Installation">
+                        <div class="image-placeholder">📸 Kitchen Outlet Installation<br><small>Photo coming soon</small></div>
                     </div>
                     <div class="project-info">
                         <div class="project-category">Electrical Work</div>
@@ -397,8 +397,9 @@
                 </div>
 
                 <div class="project-card" data-category="electrical">
-                    <div class="project-image" id="electrical-ceiling-fan-1">
-                        <div class="image-placeholder">📸 Ceiling Fan Installation</div>
+                    <div class="project-image">
+                        <img src="gallery/images/electrical/electrical-ceiling-fan-1.jpg" alt="Ceiling Fan Installation">
+                        <div class="image-placeholder">📸 Ceiling Fan Installation<br><small>Photo coming soon</small></div>
                     </div>
                     <div class="project-info">
                         <div class="project-category">Electrical Work</div>
@@ -416,8 +417,9 @@
 
                 <!-- Bathroom Projects -->
                 <div class="project-card" data-category="bathroom">
-                    <div class="project-image" id="bathroom-tile-1">
-                        <div class="image-placeholder">📸 Bathroom Tile Repair</div>
+                    <div class="project-image">
+                        <img src="gallery/images/bathroom/bathroom-tile-1.jpg" alt="Shower Tile Replacement">
+                        <div class="image-placeholder">📸 Shower Tile Replacement<br><small>Photo coming soon</small></div>
                     </div>
                     <div class="project-info">
                         <div class="project-category">Bathroom Repair</div>
@@ -434,8 +436,9 @@
                 </div>
 
                 <div class="project-card" data-category="bathroom">
-                    <div class="project-image" id="bathroom-vanity-1">
-                        <div class="image-placeholder">📸 Bathroom Vanity Installation</div>
+                    <div class="project-image">
+                        <img src="gallery/images/bathroom/bathroom-vanity-1.jpg" alt="Vanity & Faucet Installation">
+                        <div class="image-placeholder">📸 Vanity & Faucet Installation<br><small>Photo coming soon</small></div>
                     </div>
                     <div class="project-info">
                         <div class="project-category">Bathroom Repair</div>
@@ -453,8 +456,9 @@
 
                 <!-- Painting Projects -->
                 <div class="project-card" data-category="painting">
-                    <div class="project-image" id="painting-interior-1">
-                        <div class="image-placeholder">📸 Interior Painting Project</div>
+                    <div class="project-image">
+                        <img src="gallery/images/painting/painting-interior-1.jpg" alt="Living Room Paint Job">
+                        <div class="image-placeholder">📸 Living Room Paint Job<br><small>Photo coming soon</small></div>
                     </div>
                     <div class="project-info">
                         <div class="project-category">Interior Painting</div>
@@ -471,8 +475,9 @@
                 </div>
 
                 <div class="project-card" data-category="painting">
-                    <div class="project-image" id="painting-exterior-1">
-                        <div class="image-placeholder">📸 Exterior Touch-Up Paint</div>
+                    <div class="project-image">
+                        <img src="gallery/images/painting/painting-exterior-1.jpg" alt="Exterior Trim Painting">
+                        <div class="image-placeholder">📸 Exterior Trim Painting<br><small>Photo coming soon</small></div>
                     </div>
                     <div class="project-info">
                         <div class="project-category">Exterior Painting</div>
@@ -551,11 +556,6 @@
     </footer>
 
     <script>
-        // Load Google Drive images when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            loadGoogleDriveImages();
-        });
-
         // Mobile menu toggle
         document.querySelector('.mobile-menu').addEventListener('click', function() {
             const nav = document.querySelector('nav ul');
@@ -590,20 +590,21 @@
         const projectImageElements = document.querySelectorAll('.project-image');
         const closeModal = document.querySelector('.close');
 
-        projectImageElements.forEach(imageElement => {
-            imageElement.addEventListener('click', () => {
-                const imageId = imageElement.id;
+        projectImageElements.forEach(imageContainer => {
+            imageContainer.addEventListener('click', () => {
+                const img = imageContainer.querySelector('img');
                 const modalContent = document.getElementById('modal-image-placeholder');
 
-                // Check if this image has a Google Drive URL
-                if (googleDriveImages[imageId] && googleDriveImages[imageId].trim() !== '') {
+                if (img && img.complete && img.naturalHeight !== 0) {
+                    // Image loaded successfully
                     modalContent.innerHTML = `
-                        <img src="${googleDriveImages[imageId]}" alt="Project Image" style="max-width: 100%; max-height: 70vh; object-fit: contain;">
+                        <img src="${img.src}" alt="${img.alt}" style="max-width: 100%; max-height: 70vh; object-fit: contain;">
                     `;
                 } else {
+                    // Show placeholder in modal
                     modalContent.innerHTML = `
                         <h3>Project Image</h3>
-                        <p>This project image will be available once uploaded to Google Drive.</p>
+                        <p>This project image will be available once uploaded to the gallery.</p>
                         <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--slate-gray);">
                             Contact us to share your project photos!
                         </p>
