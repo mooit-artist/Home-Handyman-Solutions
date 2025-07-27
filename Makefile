@@ -66,6 +66,10 @@ help:
 	@echo "  make csp-validate    - Validate CSP policy syntax"
 	@echo "  make csp-report      - Generate CSP compliance report"
 	@echo ""
+	@echo "🔧 Apache .htaccess Commands:"
+	@echo "  make htaccess-check  - Test .htaccess syntax and rules"
+	@echo "  make htaccess-backup - Backup current .htaccess file"
+	@echo ""
 	@echo "🎨 Design & LLM-Assisted Refactoring Commands:"
 	@echo "  make design-analyze  - Analyze current design with LLM"
 	@echo "  make design-refactor - LLM-assisted design refactoring"
@@ -621,3 +625,33 @@ design-colors:
 	@echo "🔤 Primary colors: Dark Brown (#3c2e26), Gold (#d4af37)"
 	@echo "📊 Color palette: Browns, golds, professional contractor colors"
 	@echo "✨ Design system ready in: docs/styles/minimalistic.css"
+
+# Apache .htaccess Commands
+htaccess-check:
+	@echo "🔧 Testing .htaccess syntax and configuration..."
+	@if [ -f "docs/.htaccess" ]; then \
+		echo "✅ .htaccess file exists at docs/.htaccess"; \
+		echo "📝 File size: $$(wc -c < docs/.htaccess) bytes"; \
+		echo "📋 Content preview:"; \
+		head -10 docs/.htaccess; \
+		echo "..."; \
+		echo "🔍 Checking for common Apache modules..."; \
+		if grep -q "mod_rewrite" docs/.htaccess; then echo "✅ mod_rewrite rules found"; fi; \
+		if grep -q "mod_headers" docs/.htaccess; then echo "✅ mod_headers directives found"; fi; \
+		if grep -q "mod_deflate" docs/.htaccess; then echo "✅ mod_deflate compression found"; fi; \
+		if grep -q "mod_expires" docs/.htaccess; then echo "✅ mod_expires caching found"; fi; \
+		echo "🌐 Testing with local development server..."; \
+		echo "   Run 'make dev' to test .htaccess rules locally"; \
+	else \
+		echo "❌ .htaccess file not found at docs/.htaccess"; \
+		echo "   Run this command to create one with professional handyman configurations"; \
+	fi
+
+htaccess-backup:
+	@echo "💾 Creating backup of .htaccess file..."
+	@if [ -f "docs/.htaccess" ]; then \
+		cp docs/.htaccess docs/.htaccess.backup-$$(date +%Y%m%d-%H%M%S); \
+		echo "✅ Backup created: docs/.htaccess.backup-$$(date +%Y%m%d-%H%M%S)"; \
+	else \
+		echo "❌ No .htaccess file found to backup"; \
+	fi
