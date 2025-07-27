@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# FreshThreads LLC - LLM Integration Script
+# Home Handyman Solutions LLC - LLM Integration Script
 # Advanced local LLM operations for codebase analysis
 
 set -e
@@ -15,7 +15,7 @@ NC='\033[0m' # No Color
 # Configuration
 LLM_URL="http://localhost:11434"
 DEFAULT_MODEL="dolphin-llama3"
-PROJECT_NAME="FreshThreads LLC"
+PROJECT_NAME="Home Handyman Solutions LLC"
 MANIFEST_PATH=".vscode/project-manifest.json"
 CONFIG_PATH=".vscode/local-llm-config.json"
 
@@ -172,13 +172,19 @@ query_llm() {
         pull_model "$model"
     fi
 
-    local full_prompt="Context: You are analyzing the ${PROJECT_NAME} project, a print-on-demand e-commerce website deployed on GitHub Pages (static hosting only).
+    local full_prompt="Context: You are analyzing the ${PROJECT_NAME} project, a professional handyman and contractor services website deployed on GitHub Pages (static hosting only).
 
 Project constraints:
 - Static hosting only (no server-side languages)
 - Client-side JavaScript, HTML, CSS only
 - No backend databases or server-side processing
 - Must use third-party services for dynamic functionality
+
+Business focus:
+- Professional property repair and maintenance services
+- Licensed contractor serving Nebraska and Iowa
+- Services include drywall, deck repair, electrical work, inspections
+- Professional handyman solutions for residential and commercial properties
 
 ${context}
 
@@ -228,7 +234,7 @@ $structure
 Project manifest:
 $manifest_content"
 
-    query_llm "Analyze this project structure for organization, GitHub Pages optimization, and architectural improvements. Consider the print-on-demand e-commerce context." "$context" "analysis" "$custom_model"
+    query_llm "Analyze this project structure for organization, GitHub Pages optimization, and architectural improvements. Consider the handyman services business context and customer acquisition needs." "$context" "analysis" "$custom_model"
 }
 
 review_security() {
@@ -266,7 +272,7 @@ Current VS Code tasks available:
 - Format HTML Files
 - Deploy to GitHub Pages"
 
-    query_llm "Based on this FreshThreads e-commerce project, suggest specific improvements for: 1) User experience, 2) Performance optimization, 3) GitHub Pages optimization, 4) E-commerce functionality within static hosting constraints, 5) SEO and social media integration." "$context" "improve" "$custom_model"
+    query_llm "Based on this Home Handyman Solutions project, suggest specific improvements for: 1) Customer trust and credibility, 2) Performance optimization, 3) GitHub Pages optimization, 4) Lead generation and contact functionality within static hosting constraints, 5) Local SEO and service area optimization." "$context" "improve" "$custom_model"
 }
 
 check_github_pages_compatibility() {
@@ -306,7 +312,7 @@ interactive_chat() {
     log_info "Current model: $current_model"
 
     while true; do
-        echo -n "🤖 FreshThreads LLM> "
+        echo -n "🤖 Home Handyman LLM> "
         read -r input
 
         case "$input" in
@@ -359,7 +365,7 @@ interactive_chat() {
                 continue
                 ;;
             *)
-                query_llm "$input" "Interactive session for FreshThreads LLC project development." "chat" "$current_model"
+                query_llm "$input" "Interactive session for Home Handyman Solutions LLC project development." "chat" "$current_model"
                 ;;
         esac
         echo ""
@@ -410,7 +416,7 @@ case "$1" in
         show_task_models
         ;;
     *)
-        echo "🧵 FreshThreads LLC - LLM Integration Script"
+        echo "🔨 Home Handyman Solutions LLC - LLM Integration Script"
         echo ""
         echo "Usage: $0 [command] [options]"
         echo ""

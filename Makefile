@@ -1,11 +1,11 @@
-# FreshThreads LLC - Makefile
+# Home Handyman Solutions LLC - Makefile
 # Provides convenient commands for development and local LLM integration
 
 .PHONY: help dev validate format deploy llm-start llm-stop llm-status llm-chat llm-review llm-analyze llm-security llm-improve llm-compat llm-models llm-pull llm-switch llm-tasks python-setup python-install python-activate python-clean python-deps python-status python-shell python-run python-update analyze-html analyze-html-report continue-setup continue-status continue-sync llm-full-setup secrets-get secrets-set secrets-list secrets-delete secrets-export secrets-import secrets-setup security-scan security-test security-auth csp-add csp-check csp-validate csp-report design-analyze design-refactor design-preview design-colors lint lint-html lint-css lint-js lint-json lint-python lint-shell lint-markdown lint-yaml lint-fix clean install
 
 # Default target
 help:
-	@echo "🧵 FreshThreads LLC - Development Commands"
+	@echo "🔨 Home Handyman Solutions LLC - Development Commands"
 	@echo ""
 	@echo "📋 Available commands:"
 	@echo "  make dev          - Start development server (live-server)"
@@ -617,7 +617,7 @@ design-preview:
 
 design-colors:
 	@echo "🎨 Analyzing logo colors and design palette..."
-	@echo "📍 Logo location: docs/assets/Fresh_ThreadsLLCLogo.png"
-	@echo "🔤 Primary colors: Black (#000000), White (#ffffff)"
-	@echo "📊 Gray scale: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900"
+	@echo "📍 Logo location: docs/assets/handyman-logo.png (or use favicon colors)"
+	@echo "🔤 Primary colors: Dark Brown (#3c2e26), Gold (#d4af37)"
+	@echo "📊 Color palette: Browns, golds, professional contractor colors"
 	@echo "✨ Design system ready in: docs/styles/minimalistic.css"
