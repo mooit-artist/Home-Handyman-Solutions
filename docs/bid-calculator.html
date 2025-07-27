@@ -1,602 +1,950 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Get a quick estimate for your handyman project with our bid calculator. Professional services across Nebraska and Iowa.">
-    <meta name="keywords" content="handyman estimate, bid calculator, project quote, Nebraska contractor, Iowa handyman">
+  <head>
+    <!-- Security Headers -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://ajax.googleapis.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://api.printify.com https://fonts.googleapis.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
+    />
+
+    <!-- Additional Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <meta
+      http-equiv="Referrer-Policy"
+      content="strict-origin-when-cross-origin"
+    />
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Get a quick estimate for your handyman project with our bid calculator. Professional services across Nebraska and Iowa."
+    />
+    <meta
+      name="keywords"
+      content="handyman estimate, bid calculator, project quote, Nebraska contractor, Iowa handyman"
+    />
     <title>Bid Calculator - Home Handyman Solutions LLC</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect fill='%233c2e26' width='32' height='32'/><path fill='%23d4af37' d='M8 12h16v2H8zm0 4h16v2H8zm0 4h12v2H8z'/></svg>">
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect fill='%233c2e26' width='32' height='32'/><path fill='%23d4af37' d='M8 12h16v2H8zm0 4h16v2H8zm0 4h12v2H8z'/></svg>"
+    />
     <style>
-        /* Bid Calculator specific styles */
+      /* Bid Calculator specific styles */
+      .bid-calculator {
+        max-width: 800px;
+        margin: 0 auto;
+        background: var(--white);
+        border-radius: 15px;
+        padding: 3rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e2e8f0;
+      }
+
+      .calculator-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid var(--soft-gold);
+      }
+
+      .calculator-header h2 {
+        color: var(--dark-walnut);
+        margin-bottom: 1rem;
+        font-size: 2.5rem;
+      }
+
+      .calculator-header p {
+        color: var(--slate-gray);
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .form-section {
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        background: var(--light-gray);
+        border-radius: 10px;
+        border-left: 4px solid var(--soft-gold);
+      }
+
+      .form-section h3 {
+        color: var(--dark-walnut);
+        margin-bottom: 1.5rem;
+        font-size: 1.3rem;
+        text-align: left;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--dark-walnut);
+        font-size: 1rem;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: var(--white);
+      }
+
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--soft-gold);
+        box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+      }
+
+      .form-group input:hover,
+      .form-group select:hover,
+      .form-group textarea:hover {
+        border-color: var(--slate-gray);
+      }
+
+      .checkbox-group {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .checkbox-item {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        background: var(--white);
+        border-radius: 8px;
+        border: 2px solid #e2e8f0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .checkbox-item:hover {
+        border-color: var(--soft-gold);
+        background: rgba(212, 175, 55, 0.05);
+      }
+
+      .checkbox-item input[type="checkbox"] {
+        width: auto;
+        margin-right: 0.5rem;
+        accent-color: var(--soft-gold);
+      }
+
+      .checkbox-item label {
+        margin-bottom: 0;
+        cursor: pointer;
+        font-weight: 500;
+      }
+
+      .required {
+        color: var(--soft-gold);
+        font-weight: bold;
+      }
+
+      .submit-section {
+        text-align: center;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 2px solid var(--light-gray);
+      }
+
+      .submit-btn {
+        background: linear-gradient(135deg, var(--soft-gold), #b8941f);
+        color: var(--dark-walnut);
+        border: none;
+        padding: 15px 40px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+      }
+
+      .submit-btn:active {
+        transform: translateY(0);
+      }
+
+      .info-box {
+        background: var(--white);
+        border: 2px solid var(--soft-gold);
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        text-align: center;
+      }
+
+      .info-box h4 {
+        color: var(--dark-walnut);
+        margin-bottom: 1rem;
+      }
+
+      .info-box p {
+        color: var(--slate-gray);
+        font-size: 0.9rem;
+        line-height: 1.6;
+      }
+
+      .price-guide {
+        background: var(--light-gray);
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .price-guide h4 {
+        color: var(--dark-walnut);
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .price-guide-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+
+      .price-item {
+        background: var(--white);
+        padding: 1rem;
+        border-radius: 8px;
+        text-align: center;
+        border: 1px solid #e2e8f0;
+      }
+
+      .price-item h5 {
+        color: var(--dark-walnut);
+        margin-bottom: 0.5rem;
+      }
+
+      .price-item p {
+        color: var(--slate-gray);
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 768px) {
         .bid-calculator {
-            max-width: 800px;
-            margin: 0 auto;
-            background: var(--white);
-            border-radius: 15px;
-            padding: 3rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e2e8f0;
+          padding: 2rem 1rem;
+          margin: 1rem;
         }
-        
-        .calculator-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding-bottom: 2rem;
-            border-bottom: 2px solid var(--soft-gold);
-        }
-        
+
         .calculator-header h2 {
-            color: var(--dark-walnut);
-            margin-bottom: 1rem;
-            font-size: 2.5rem;
+          font-size: 2rem;
         }
-        
-        .calculator-header p {
-            color: var(--slate-gray);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .form-section {
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: var(--light-gray);
-            border-radius: 10px;
-            border-left: 4px solid var(--soft-gold);
-        }
-        
-        .form-section h3 {
-            color: var(--dark-walnut);
-            margin-bottom: 1.5rem;
-            font-size: 1.3rem;
-            text-align: left;
-        }
-        
+
         .form-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
+          grid-template-columns: 1fr;
         }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--dark-walnut);
-            font-size: 1rem;
-        }
-        
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background: var(--white);
-        }
-        
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--soft-gold);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
-        }
-        
-        .form-group input:hover,
-        .form-group select:hover,
-        .form-group textarea:hover {
-            border-color: var(--slate-gray);
-        }
-        
+
         .checkbox-group {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
+          grid-template-columns: 1fr;
         }
-        
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            padding: 1rem;
-            background: var(--white);
-            border-radius: 8px;
-            border: 2px solid #e2e8f0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .checkbox-item:hover {
-            border-color: var(--soft-gold);
-            background: rgba(212, 175, 55, 0.05);
-        }
-        
-        .checkbox-item input[type="checkbox"] {
-            width: auto;
-            margin-right: 0.5rem;
-            accent-color: var(--soft-gold);
-        }
-        
-        .checkbox-item label {
-            margin-bottom: 0;
-            cursor: pointer;
-            font-weight: 500;
-        }
-        
-        .required {
-            color: var(--soft-gold);
-            font-weight: bold;
-        }
-        
-        .submit-section {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 2px solid var(--light-gray);
-        }
-        
-        .submit-btn {
-            background: linear-gradient(135deg, var(--soft-gold), #b8941f);
-            color: var(--dark-walnut);
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-        }
-        
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
-        }
-        
-        .submit-btn:active {
-            transform: translateY(0);
-        }
-        
-        .info-box {
-            background: var(--white);
-            border: 2px solid var(--soft-gold);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            text-align: center;
-        }
-        
-        .info-box h4 {
-            color: var(--dark-walnut);
-            margin-bottom: 1rem;
-        }
-        
-        .info-box p {
-            color: var(--slate-gray);
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-        
-        .price-guide {
-            background: var(--light-gray);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        .price-guide h4 {
-            color: var(--dark-walnut);
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-        
-        .price-guide-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-        
-        .price-item {
-            background: var(--white);
-            padding: 1rem;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid #e2e8f0;
-        }
-        
-        .price-item h5 {
-            color: var(--dark-walnut);
-            margin-bottom: 0.5rem;
-        }
-        
-        .price-item p {
-            color: var(--slate-gray);
-            font-size: 0.9rem;
-        }
-        
-        @media (max-width: 768px) {
-            .bid-calculator {
-                padding: 2rem 1rem;
-                margin: 1rem;
-            }
-            
-            .calculator-header h2 {
-                font-size: 2rem;
-            }
-            
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-            
-            .checkbox-group {
-                grid-template-columns: 1fr;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <div class="header-container">
-            <div class="logo">Home Handyman Solutions LLC</div>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="gallery.html">Our Work</a></li>
-                    <li><a href="bid-calculator.html">Get Quote</a></li>
-                    <li><a href="pay-bill.html">Pay Bill</a></li>
-                    <li><a href="legal.html">Legal</a></li>
-                </ul>
-            </nav>
-            <button class="mobile-menu">☰</button>
-        </div>
+      <div class="header-container">
+        <div class="logo">Home Handyman Solutions LLC</div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="gallery.html">Our Work</a></li>
+            <li><a href="bid-calculator.html">Get Quote</a></li>
+            <li><a href="pay-bill.html">Pay Bill</a></li>
+            <li><a href="legal.html">Legal</a></li>
+          </ul>
+        </nav>
+        <button class="mobile-menu">☰</button>
+      </div>
     </header>
 
-    <main style="padding: 2rem 0;">
-        <div class="bid-calculator">
-            <div class="calculator-header">
-                <h2>📋 Project Bid Calculator</h2>
-                <p>Get an accurate estimate for your handyman project by providing details about your specific needs. All fields marked with <span class="required">*</span> are required for the most accurate quote.</p>
-            </div>
-
-            <form action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" method="POST" target="_blank">
-                
-                <!-- Service Selection -->
-                <div class="form-section">
-                    <h3>🔧 Services Needed <span class="required">*</span></h3>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="drywall" name="services" value="Drywall Services">
-                            <label for="drywall">Drywall Services</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="deck" name="services" value="Deck Repair & Restoration">
-                            <label for="deck">Deck Repair & Restoration</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="electrical" name="services" value="Electrical Services">
-                            <label for="electrical">Electrical Services</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="bathroom" name="services" value="Bathroom Repairs">
-                            <label for="bathroom">Bathroom Repairs</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="doors" name="services" value="Door & Window Services">
-                            <label for="doors">Door & Window Services</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="plumbing" name="services" value="Plumbing Repairs">
-                            <label for="plumbing">Plumbing Repairs</label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project Details -->
-                <div class="form-section">
-                    <h3>📐 Project Specifications</h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="square-footage">Estimated Square Footage <span class="required">*</span></label>
-                            <input type="number" id="square-footage" name="square_footage" min="1" max="10000" required placeholder="e.g., 500">
-                        </div>
-                        <div class="form-group">
-                            <label for="finish-level">Desired Finish Level <span class="required">*</span></label>
-                            <select id="finish-level" name="finish_level" required>
-                                <option value="">Select finish level...</option>
-                                <option value="Level 3">Level 3 - Basic (suitable for texture/paint)</option>
-                                <option value="Level 4">Level 4 - Standard (smooth finish)</option>
-                                <option value="Level 5">Level 5 - Premium (critical lighting)</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="ceiling-height">Ceiling Height <span class="required">*</span></label>
-                            <select id="ceiling-height" name="ceiling_height" required>
-                                <option value="">Select ceiling height...</option>
-                                <option value="Under 8 ft">Under 8 ft</option>
-                                <option value="8-10 ft">8-10 ft (standard)</option>
-                                <option value="Over 10 ft">Over 10 ft (high ceilings)</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="material-supply">Material Supply Preference <span class="required">*</span></label>
-                            <select id="material-supply" name="material_supply" required>
-                                <option value="">Select preference...</option>
-                                <option value="Yes">Yes - Please supply materials</option>
-                                <option value="No">No - I will provide materials</option>
-                                <option value="Partial">Partial - Some materials only</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Timeline & Urgency -->
-                <div class="form-section">
-                    <h3>📅 Timeline Requirements</h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="timeline-urgency">Timeline Urgency <span class="required">*</span></label>
-                            <select id="timeline-urgency" name="timeline_urgency" required>
-                                <option value="">Select timeline...</option>
-                                <option value="Flexible">Flexible - Within 1-2 months</option>
-                                <option value="Preferred Week">Preferred Week - Specific week preferred</option>
-                                <option value="Urgent">Urgent - Within 1-2 weeks</option>
-                                <option value="Emergency">Emergency - ASAP</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="preferred-date">Preferred Start Date</label>
-                            <input type="date" id="preferred-date" name="preferred_date">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Contact Information -->
-                <div class="form-section">
-                    <h3>📧 Contact Information</h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="customer-name">Full Name <span class="required">*</span></label>
-                            <input type="text" id="customer-name" name="customer_name" required placeholder="Your full name">
-                        </div>
-                        <div class="form-group">
-                            <label for="customer-email">Email Address <span class="required">*</span></label>
-                            <input type="email" id="customer-email" name="customer_email" required placeholder="your@email.com">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="customer-phone">Phone Number <span class="required">*</span></label>
-                            <input type="tel" id="customer-phone" name="customer_phone" required placeholder="(402) 555-0123">
-                        </div>
-                        <div class="form-group">
-                            <label for="property-address">Property Address</label>
-                            <input type="text" id="property-address" name="property_address" placeholder="123 Main St, Omaha, NE 68102">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Additional Details -->
-                <div class="form-section">
-                    <h3>📝 Additional Project Details</h3>
-                    <div class="form-group">
-                        <label for="project-description">Detailed Project Description</label>
-                        <textarea id="project-description" name="project_description" rows="4" placeholder="Please provide specific details about your project, including any special requirements, concerns, or preferences..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="budget-range">Budget Range (Optional)</label>
-                        <select id="budget-range" name="budget_range">
-                            <option value="">Select budget range...</option>
-                            <option value="Under $500">Under $500</option>
-                            <option value="$500 - $1,000">$500 - $1,000</option>
-                            <option value="$1,000 - $3,000">$1,000 - $3,000</option>
-                            <option value="$3,000 - $5,000">$3,000 - $5,000</option>
-                            <option value="$5,000 - $10,000">$5,000 - $10,000</option>
-                            <option value="Over $10,000">Over $10,000</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="info-box">
-                    <h4>🔒 Your Information is Secure</h4>
-                    <p>All information provided is kept confidential and used solely for preparing your project estimate. We never share your details with third parties.</p>
-                </div>
-
-                <!-- Interactive Google Sheets Calculator -->
-                <div style="background: linear-gradient(135deg, var(--soft-gold), #b8941f); border-radius: 15px; padding: 2rem; margin: 2rem 0; text-align: center;">
-                    <h3 style="color: var(--dark-walnut); margin-bottom: 1rem;">🧮 Interactive Price Calculator</h3>
-                    <p style="color: var(--dark-walnut); margin-bottom: 1.5rem; font-size: 1.1rem;">
-                        Get an instant, personalized estimate with our interactive calculator!
-                    </p>
-                    <a href="https://docs.google.com/spreadsheets/d/19k3GNvaZbi7AlMKJLSwiNnohpe17R76vXgNw6SsUR2k/edit?usp=drive_link" 
-                       target="_blank" 
-                       style="background: var(--white); color: var(--dark-walnut); text-decoration: none; display: inline-block; padding: 15px 30px; border-radius: 25px; font-weight: bold; font-size: 1.1rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                        🚀 Launch Calculator
-                    </a>
-                    <p style="color: var(--dark-walnut); margin-top: 1rem; font-size: 0.9rem;">
-                        Opens in a new tab • No download required • Works on all devices
-                    </p>
-                </div>
-
-                <!-- Instructions for Using Calculator -->
-                <div style="background: var(--white); border: 2px solid var(--soft-gold); border-radius: 10px; padding: 2rem; margin: 2rem 0;">
-                    <h4 style="color: var(--dark-walnut); margin-bottom: 1rem; text-align: center;">📋 How to Use the Calculator</h4>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
-                        <div style="text-align: center;">
-                            <div style="background: var(--soft-gold); color: var(--dark-walnut); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto; font-weight: bold; font-size: 1.2rem;">1</div>
-                            <h5 style="color: var(--dark-walnut); margin-bottom: 0.5rem;">Enter Project Details</h5>
-                            <p style="color: var(--slate-gray); font-size: 0.9rem;">Fill in square footage, finish level, and other specifications</p>
-                        </div>
-                        <div style="text-align: center;">
-                            <div style="background: var(--soft-gold); color: var(--dark-walnut); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto; font-weight: bold; font-size: 1.2rem;">2</div>
-                            <h5 style="color: var(--dark-walnut); margin-bottom: 0.5rem;">Select Services</h5>
-                            <p style="color: var(--slate-gray); font-size: 0.9rem;">Choose which services you need from the dropdown menus</p>
-                        </div>
-                        <div style="text-align: center;">
-                            <div style="background: var(--soft-gold); color: var(--dark-walnut); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto; font-weight: bold; font-size: 1.2rem;">3</div>
-                            <h5 style="color: var(--dark-walnut); margin-bottom: 0.5rem;">Get Instant Estimate</h5>
-                            <p style="color: var(--slate-gray); font-size: 0.9rem;">See your personalized price range and cost breakdown</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Static Price Reference Guide -->
-                <div style="background: var(--light-gray); border-radius: 15px; padding: 2rem; margin: 2rem 0;">
-                    <h3 style="color: var(--dark-walnut); margin-bottom: 1.5rem; text-align: center;">💰 Quick Price Reference</h3>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
-                        <div style="background: var(--white); padding: 1.5rem; border-radius: 10px; text-align: center;">
-                            <h4 style="color: var(--dark-walnut); margin-bottom: 1rem;">Drywall Services</h4>
-                            <div style="font-size: 0.9rem; color: var(--slate-gray);">
-                                <p><strong>Level 3:</strong> $2-3/sq ft</p>
-                                <p><strong>Level 4:</strong> $3-4/sq ft</p>
-                                <p><strong>Level 5:</strong> $4-5/sq ft</p>
-                                <p style="margin-top: 0.5rem; font-size: 0.8rem;">Example: 500 sq ft Level 4 = $1,500-2,000</p>
-                            </div>
-                        </div>
-                        
-                        <div style="background: var(--white); padding: 1.5rem; border-radius: 10px; text-align: center;">
-                            <h4 style="color: var(--dark-walnut); margin-bottom: 1rem;">Deck Repair</h4>
-                            <div style="font-size: 0.9rem; color: var(--slate-gray);">
-                                <p><strong>Basic:</strong> $15-20/sq ft</p>
-                                <p><strong>Standard:</strong> $20-25/sq ft</p>
-                                <p><strong>Premium:</strong> $25-35/sq ft</p>
-                                <p style="margin-top: 0.5rem; font-size: 0.8rem;">Example: 200 sq ft Standard = $4,000-5,000</p>
-                            </div>
-                        </div>
-                        
-                        <div style="background: var(--white); padding: 1.5rem; border-radius: 10px; text-align: center;">
-                            <h4 style="color: var(--dark-walnut); margin-bottom: 1rem;">Other Services</h4>
-                            <div style="font-size: 0.9rem; color: var(--slate-gray);">
-                                <p><strong>Electrical:</strong> $150-400/service</p>
-                                <p><strong>Bathroom:</strong> $300-1,200/project</p>
-                                <p><strong>Doors/Windows:</strong> $200-600/unit</p>
-                                <p><strong>Plumbing:</strong> $200-500/service</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div style="background: rgba(255,255,255,0.9); padding: 1.5rem; border-radius: 10px; margin-top: 1rem;">
-                        <h4 style="color: var(--dark-walnut); margin-bottom: 1rem; text-align: center;">📊 Additional Cost Factors</h4>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; font-size: 0.9rem; color: var(--slate-gray);">
-                            <div>
-                                <p><strong>High Ceilings (10ft+):</strong> +20-30%</p>
-                                <p><strong>Material Supply:</strong> +30-40%</p>
-                            </div>
-                            <div>
-                                <p><strong>Urgent Timeline:</strong> +20-30%</p>
-                                <p><strong>Emergency Service:</strong> +50-60%</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="submit-section">
-                    <button type="submit" class="submit-btn">📊 Get Official Quote & Schedule</button>
-                    <p style="margin-top: 1rem; color: var(--slate-gray); font-size: 0.9rem;">
-                        Submit this form to receive an official quote and schedule your project.
-                    </p>
-                </div>
-            </form>
+    <main style="padding: 2rem 0">
+      <div class="bid-calculator">
+        <div class="calculator-header">
+          <h2>📋 Project Bid Calculator</h2>
+          <p>
+            Get an accurate estimate for your handyman project by providing
+            details about your specific needs. All fields marked with
+            <span class="required">*</span> are required for the most accurate
+            quote.
+          </p>
         </div>
 
-        <!-- Price Guide Section -->
-        <div class="price-guide" style="max-width: 800px; margin: 3rem auto;">
-            <h4>💰 General Price Guide</h4>
-            <div class="price-guide-grid">
-                <div class="price-item">
-                    <h5>Drywall Services</h5>
-                    <p>$2-4 per sq ft<br>Depends on finish level</p>
-                </div>
-                <div class="price-item">
-                    <h5>Deck Repair</h5>
-                    <p>$15-30 per sq ft<br>Varies by materials</p>
-                </div>
-                <div class="price-item">
-                    <h5>Electrical Work</h5>
-                    <p>$100-300 per service<br>Plus materials</p>
-                </div>
-                <div class="price-item">
-                    <h5>Bathroom Repairs</h5>
-                    <p>$200-800 per project<br>Based on complexity</p>
-                </div>
-                <div class="price-item">
-                    <h5>Door & Window</h5>
-                    <p>$150-500 per unit<br>Installation included</p>
-                </div>
-                <div class="price-item">
-                    <h5>Plumbing Repairs</h5>
-                    <p>$150-400 per service<br>Emergency rates higher</p>
-                </div>
+        <form
+          action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse"
+          method="POST"
+          target="_blank"
+        >
+          <!-- Service Selection -->
+          <div class="form-section">
+            <h3>🔧 Services Needed <span class="required">*</span></h3>
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="drywall"
+                  name="services"
+                  value="Drywall Services"
+                />
+                <label for="drywall">Drywall Services</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="deck"
+                  name="services"
+                  value="Deck Repair & Restoration"
+                />
+                <label for="deck">Deck Repair & Restoration</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="electrical"
+                  name="services"
+                  value="Electrical Services"
+                />
+                <label for="electrical">Electrical Services</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="bathroom"
+                  name="services"
+                  value="Bathroom Repairs"
+                />
+                <label for="bathroom">Bathroom Repairs</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="doors"
+                  name="services"
+                  value="Door & Window Services"
+                />
+                <label for="doors">Door & Window Services</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="plumbing"
+                  name="services"
+                  value="Plumbing Repairs"
+                />
+                <label for="plumbing">Plumbing Repairs</label>
+              </div>
             </div>
-            <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: var(--slate-gray);">
-                *Prices are estimates only. Actual costs may vary based on project specifics, materials, and site conditions.
+          </div>
+
+          <!-- Project Details -->
+          <div class="form-section">
+            <h3>📐 Project Specifications</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="square-footage"
+                  >Estimated Square Footage
+                  <span class="required">*</span></label
+                >
+                <input
+                  type="number"
+                  id="square-footage"
+                  name="square_footage"
+                  min="1"
+                  max="10000"
+                  required
+                  placeholder="e.g., 500"
+                />
+              </div>
+              <div class="form-group">
+                <label for="finish-level"
+                  >Desired Finish Level <span class="required">*</span></label
+                >
+                <select id="finish-level" name="finish_level" required>
+                  <option value="">Select finish level...</option>
+                  <option value="Level 3">
+                    Level 3 - Basic (suitable for texture/paint)
+                  </option>
+                  <option value="Level 4">
+                    Level 4 - Standard (smooth finish)
+                  </option>
+                  <option value="Level 5">
+                    Level 5 - Premium (critical lighting)
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="ceiling-height"
+                  >Ceiling Height <span class="required">*</span></label
+                >
+                <select id="ceiling-height" name="ceiling_height" required>
+                  <option value="">Select ceiling height...</option>
+                  <option value="Under 8 ft">Under 8 ft</option>
+                  <option value="8-10 ft">8-10 ft (standard)</option>
+                  <option value="Over 10 ft">Over 10 ft (high ceilings)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="material-supply"
+                  >Material Supply Preference
+                  <span class="required">*</span></label
+                >
+                <select id="material-supply" name="material_supply" required>
+                  <option value="">Select preference...</option>
+                  <option value="Yes">Yes - Please supply materials</option>
+                  <option value="No">No - I will provide materials</option>
+                  <option value="Partial">Partial - Some materials only</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline & Urgency -->
+          <div class="form-section">
+            <h3>📅 Timeline Requirements</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="timeline-urgency"
+                  >Timeline Urgency <span class="required">*</span></label
+                >
+                <select id="timeline-urgency" name="timeline_urgency" required>
+                  <option value="">Select timeline...</option>
+                  <option value="Flexible">Flexible - Within 1-2 months</option>
+                  <option value="Preferred Week">
+                    Preferred Week - Specific week preferred
+                  </option>
+                  <option value="Urgent">Urgent - Within 1-2 weeks</option>
+                  <option value="Emergency">Emergency - ASAP</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="preferred-date">Preferred Start Date</label>
+                <input type="date" id="preferred-date" name="preferred_date" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Information -->
+          <div class="form-section">
+            <h3>📧 Contact Information</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="customer-name"
+                  >Full Name <span class="required">*</span></label
+                >
+                <input
+                  type="text"
+                  id="customer-name"
+                  name="customer_name"
+                  required
+                  placeholder="Your full name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="customer-email"
+                  >Email Address <span class="required">*</span></label
+                >
+                <input
+                  type="email"
+                  id="customer-email"
+                  name="customer_email"
+                  required
+                  placeholder="your@email.com"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="customer-phone"
+                  >Phone Number <span class="required">*</span></label
+                >
+                <input
+                  type="tel"
+                  id="customer-phone"
+                  name="customer_phone"
+                  required
+                  placeholder="(402) 555-0123"
+                />
+              </div>
+              <div class="form-group">
+                <label for="property-address">Property Address</label>
+                <input
+                  type="text"
+                  id="property-address"
+                  name="property_address"
+                  placeholder="123 Main St, Omaha, NE 68102"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Additional Details -->
+          <div class="form-section">
+            <h3>📝 Additional Project Details</h3>
+            <div class="form-group">
+              <label for="project-description"
+                >Detailed Project Description</label
+              >
+              <textarea
+                id="project-description"
+                name="project_description"
+                rows="4"
+                placeholder="Please provide specific details about your project, including any special requirements, concerns, or preferences..."
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label for="budget-range">Budget Range (Optional)</label>
+              <select id="budget-range" name="budget_range">
+                <option value="">Select budget range...</option>
+                <option value="Under $500">Under $500</option>
+                <option value="$500 - $1,000">$500 - $1,000</option>
+                <option value="$1,000 - $3,000">$1,000 - $3,000</option>
+                <option value="$3,000 - $5,000">$3,000 - $5,000</option>
+                <option value="$5,000 - $10,000">$5,000 - $10,000</option>
+                <option value="Over $10,000">Over $10,000</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <h4>🔒 Your Information is Secure</h4>
+            <p>
+              All information provided is kept confidential and used solely for
+              preparing your project estimate. We never share your details with
+              third parties.
             </p>
+          </div>
+
+          <!-- Interactive Google Sheets Calculator -->
+          <div
+            style="
+              background: linear-gradient(135deg, var(--soft-gold), #b8941f);
+              border-radius: 15px;
+              padding: 2rem;
+              margin: 2rem 0;
+              text-align: center;
+            "
+          >
+            <h3 style="color: var(--dark-walnut); margin-bottom: 1rem">
+              🧮 Interactive Price Calculator
+            </h3>
+            <p
+              style="
+                color: var(--dark-walnut);
+                margin-bottom: 1.5rem;
+                font-size: 1.1rem;
+              "
+            >
+              Get an instant, personalized estimate with our interactive
+              calculator!
+            </p>
+            <a
+              href="https://docs.google.com/spreadsheets/d/19k3GNvaZbi7AlMKJLSwiNnohpe17R76vXgNw6SsUR2k/edit?usp=drive_link"
+              target="_blank"
+              style="
+                background: var(--white);
+                color: var(--dark-walnut);
+                text-decoration: none;
+                display: inline-block;
+                padding: 15px 30px;
+                border-radius: 25px;
+                font-weight: bold;
+                font-size: 1.1rem;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+              "
+            >
+              🚀 Launch Calculator
+            </a>
+            <p
+              style="
+                color: var(--dark-walnut);
+                margin-top: 1rem;
+                font-size: 0.9rem;
+              "
+            >
+              Opens in a new tab • No download required • Works on all devices
+            </p>
+          </div>
+
+          <!-- Instructions for Using Calculator -->
+          <div
+            style="
+              background: var(--white);
+              border: 2px solid var(--soft-gold);
+              border-radius: 10px;
+              padding: 2rem;
+              margin: 2rem 0;
+            "
+          >
+            <h4
+              style="
+                color: var(--dark-walnut);
+                margin-bottom: 1rem;
+                text-align: center;
+              "
+            >
+              📋 How to Use the Calculator
+            </h4>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+              "
+            >
+              <div style="text-align: center">
+                <div
+                  style="
+                    background: var(--soft-gold);
+                    color: var(--dark-walnut);
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 auto 1rem auto;
+                    font-weight: bold;
+                    font-size: 1.2rem;
+                  "
+                >
+                  1
+                </div>
+                <h5 style="color: var(--dark-walnut); margin-bottom: 0.5rem">
+                  Enter Project Details
+                </h5>
+                <p style="color: var(--slate-gray); font-size: 0.9rem">
+                  Fill in square footage, finish level, and other specifications
+                </p>
+              </div>
+              <div style="text-align: center">
+                <div
+                  style="
+                    background: var(--soft-gold);
+                    color: var(--dark-walnut);
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 auto 1rem auto;
+                    font-weight: bold;
+                    font-size: 1.2rem;
+                  "
+                >
+                  2
+                </div>
+                <h5 style="color: var(--dark-walnut); margin-bottom: 0.5rem">
+                  Select Services
+                </h5>
+                <p style="color: var(--slate-gray); font-size: 0.9rem">
+                  Choose which services you need from the dropdown menus
+                </p>
+              </div>
+              <div style="text-align: center">
+                <div
+                  style="
+                    background: var(--soft-gold);
+                    color: var(--dark-walnut);
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 auto 1rem auto;
+                    font-weight: bold;
+                    font-size: 1.2rem;
+                  "
+                >
+                  3
+                </div>
+                <h5 style="color: var(--dark-walnut); margin-bottom: 0.5rem">
+                  Get Instant Estimate
+                </h5>
+                <p style="color: var(--slate-gray); font-size: 0.9rem">
+                  See your personalized price range and cost breakdown
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Static Price Reference Guide -->
+          <div
+            style="
+              background: var(--light-gray);
+              border-radius: 15px;
+              padding: 2rem;
+              margin: 2rem 0;
+            "
+          >
+            <h3
+              style="
+                color: var(--dark-walnut);
+                margin-bottom: 1.5rem;
+                text-align: center;
+              "
+            >
+              💰 Quick Price Reference
+            </h3>
+
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1rem;
+                margin-bottom: 2rem;
+              "
+            >
+              <div
+                style="
+                  background: var(--white);
+                  padding: 1.5rem;
+                  border-radius: 10px;
+                  text-align: center;
+                "
+              >
+                <h4 style="color: var(--dark-walnut); margin-bottom: 1rem">
+                  Drywall Services
+                </h4>
+                <div style="font-size: 0.9rem; color: var(--slate-gray)">
+                  <p><strong>Level 3:</strong> $2-3/sq ft</p>
+                  <p><strong>Level 4:</strong> $3-4/sq ft</p>
+                  <p><strong>Level 5:</strong> $4-5/sq ft</p>
+                  <p style="margin-top: 0.5rem; font-size: 0.8rem">
+                    Example: 500 sq ft Level 4 = $1,500-2,000
+                  </p>
+                </div>
+              </div>
+
+              <div
+                style="
+                  background: var(--white);
+                  padding: 1.5rem;
+                  border-radius: 10px;
+                  text-align: center;
+                "
+              >
+                <h4 style="color: var(--dark-walnut); margin-bottom: 1rem">
+                  Deck Repair
+                </h4>
+                <div style="font-size: 0.9rem; color: var(--slate-gray)">
+                  <p><strong>Basic:</strong> $15-20/sq ft</p>
+                  <p><strong>Standard:</strong> $20-25/sq ft</p>
+                  <p><strong>Premium:</strong> $25-35/sq ft</p>
+                  <p style="margin-top: 0.5rem; font-size: 0.8rem">
+                    Example: 200 sq ft Standard = $4,000-5,000
+                  </p>
+                </div>
+              </div>
+
+              <div
+                style="
+                  background: var(--white);
+                  padding: 1.5rem;
+                  border-radius: 10px;
+                  text-align: center;
+                "
+              >
+                <h4 style="color: var(--dark-walnut); margin-bottom: 1rem">
+                  Other Services
+                </h4>
+                <div style="font-size: 0.9rem; color: var(--slate-gray)">
+                  <p><strong>Electrical:</strong> $150-400/service</p>
+                  <p><strong>Bathroom:</strong> $300-1,200/project</p>
+                  <p><strong>Doors/Windows:</strong> $200-600/unit</p>
+                  <p><strong>Plumbing:</strong> $200-500/service</p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.9);
+                padding: 1.5rem;
+                border-radius: 10px;
+                margin-top: 1rem;
+              "
+            >
+              <h4
+                style="
+                  color: var(--dark-walnut);
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                📊 Additional Cost Factors
+              </h4>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                  gap: 1rem;
+                  font-size: 0.9rem;
+                  color: var(--slate-gray);
+                "
+              >
+                <div>
+                  <p><strong>High Ceilings (10ft+):</strong> +20-30%</p>
+                  <p><strong>Material Supply:</strong> +30-40%</p>
+                </div>
+                <div>
+                  <p><strong>Urgent Timeline:</strong> +20-30%</p>
+                  <p><strong>Emergency Service:</strong> +50-60%</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="submit-section">
+            <button type="submit" class="submit-btn">
+              📊 Get Official Quote & Schedule
+            </button>
+            <p
+              style="
+                margin-top: 1rem;
+                color: var(--slate-gray);
+                font-size: 0.9rem;
+              "
+            >
+              Submit this form to receive an official quote and schedule your
+              project.
+            </p>
+          </div>
+        </form>
+      </div>
+
+      <!-- Price Guide Section -->
+      <div class="price-guide" style="max-width: 800px; margin: 3rem auto">
+        <h4>💰 General Price Guide</h4>
+        <div class="price-guide-grid">
+          <div class="price-item">
+            <h5>Drywall Services</h5>
+            <p>$2-4 per sq ft<br />Depends on finish level</p>
+          </div>
+          <div class="price-item">
+            <h5>Deck Repair</h5>
+            <p>$15-30 per sq ft<br />Varies by materials</p>
+          </div>
+          <div class="price-item">
+            <h5>Electrical Work</h5>
+            <p>$100-300 per service<br />Plus materials</p>
+          </div>
+          <div class="price-item">
+            <h5>Bathroom Repairs</h5>
+            <p>$200-800 per project<br />Based on complexity</p>
+          </div>
+          <div class="price-item">
+            <h5>Door & Window</h5>
+            <p>$150-500 per unit<br />Installation included</p>
+          </div>
+          <div class="price-item">
+            <h5>Plumbing Repairs</h5>
+            <p>$150-400 per service<br />Emergency rates higher</p>
+          </div>
         </div>
+        <p
+          style="
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--slate-gray);
+          "
+        >
+          *Prices are estimates only. Actual costs may vary based on project
+          specifics, materials, and site conditions.
+        </p>
+      </div>
     </main>
 
     <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 Home Handyman Solutions LLC. All rights reserved.</p>
-            <p>Licensed Contractor | Serving Nebraska & Iowa</p>
-        </div>
+      <div class="footer-content">
+        <p>&copy; 2025 Home Handyman Solutions LLC. All rights reserved.</p>
+        <p>Licensed Contractor | Serving Nebraska & Iowa</p>
+      </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            const nav = document.querySelector('nav ul');
-            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+      // Mobile menu toggle
+      document
+        .querySelector(".mobile-menu")
+        .addEventListener("click", function () {
+          const nav = document.querySelector("nav ul");
+          nav.style.display = nav.style.display === "flex" ? "none" : "flex";
         });
 
-        // Form validation and enhancement (basic functionality only)
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('form');
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            
-            // Add visual feedback for checkbox selection
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    const item = this.closest('.checkbox-item');
-                    if (this.checked) {
-                        item.style.backgroundColor = 'rgba(212, 175, 55, 0.1)';
-                        item.style.borderColor = 'var(--soft-gold)';
-                    } else {
-                        item.style.backgroundColor = 'var(--white)';
-                        item.style.borderColor = '#e2e8f0';
-                    }
-                });
-            });
-            
-            // Ensure at least one service is selected
-            form.addEventListener('submit', function(e) {
-                const checkedServices = Array.from(checkboxes).some(cb => cb.checked);
-                if (!checkedServices) {
-                    e.preventDefault();
-                    alert('Please select at least one service before submitting.');
-                    return false;
-                }
-                
-                // Show success message
-                alert('Thank you! Your quote request has been submitted. We will contact you within 24 hours with an official estimate.');
-            });
+      // Form validation and enhancement (basic functionality only)
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+        // Add visual feedback for checkbox selection
+        checkboxes.forEach((checkbox) => {
+          checkbox.addEventListener("change", function () {
+            const item = this.closest(".checkbox-item");
+            if (this.checked) {
+              item.style.backgroundColor = "rgba(212, 175, 55, 0.1)";
+              item.style.borderColor = "var(--soft-gold)";
+            } else {
+              item.style.backgroundColor = "var(--white)";
+              item.style.borderColor = "#e2e8f0";
+            }
+          });
         });
+
+        // Ensure at least one service is selected
+        form.addEventListener("submit", function (e) {
+          const checkedServices = Array.from(checkboxes).some(
+            (cb) => cb.checked,
+          );
+          if (!checkedServices) {
+            e.preventDefault();
+            alert("Please select at least one service before submitting.");
+            return false;
+          }
+
+          // Show success message
+          alert(
+            "Thank you! Your quote request has been submitted. We will contact you within 24 hours with an official estimate.",
+          );
+        });
+      });
     </script>
-</body>
+  </body>
 </html>

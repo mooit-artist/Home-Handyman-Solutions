@@ -1,0 +1,38 @@
+You are a professional web designer tasked with refactoring the FreshThreads LLC website into a sleek, minimalistic design.
+
+DESIGN BRIEF:
+- Company: FreshThreads LLC (Print-on-Demand Apparel)
+- Style: Minimalistic, clean, bold
+- Color Scheme: White and black primary (extract exact colors from logo)
+- Logo Location: /docs/assets/Fresh_ThreadsLLCLogo.png
+- Target: Modern, professional e-commerce aesthetic
+
+CURRENT WEBSITE ANALYSIS NEEDED:
+1. Analyze the logo design and extract the exact color palette
+2. Review current HTML structure and identify design inconsistencies
+3. Create a cohesive color scheme based on logo colors
+4. Design a minimalistic layout that emphasizes the products
+5. Ensure brand consistency across all pages
+
+DELIVERABLES REQUESTED:
+1. Color palette with exact hex codes from the logo
+2. Typography recommendations (clean, modern fonts)
+3. Layout structure suggestions
+4. CSS framework recommendations
+5. Specific design improvements for each major page section
+
+PAGES TO REFACTOR:
+- Homepage (index.html)
+- Products page (products.html)
+- About page (about.html)
+- Contact page (contact.html)
+- Account/Dashboard pages
+
+DESIGN PRINCIPLES:
+- Minimalism: Lots of white space, clean lines
+- Bold: Strong typography, clear call-to-actions
+- Professional: Trust-building for e-commerce
+- Mobile-first: Responsive design
+- Fast loading: Optimized for performance
+
+Please provide a comprehensive design strategy that transforms this into a premium, minimalistic brand experience.

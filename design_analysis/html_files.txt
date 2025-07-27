@@ -1,0 +1,8 @@
+docs/legal.html
+docs/index.html
+docs/pay-bill.html
+docs/about.html
+docs/contact.html
+docs/gallery.html
+docs/bid-calculator.html
+docs/services.html
