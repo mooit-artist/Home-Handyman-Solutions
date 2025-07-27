@@ -1,0 +1,90 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start Live Server",
+      "type": "shell",
+      "command": "live-server",
+      "args": [
+        "--port=5500",
+        "--entry-file=index.html",
+        "--mount=/docs:."
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "new"
+      },
+      "options": {
+        "cwd": "${workspaceFolder}/docs"
+      }
+    },
+    {
+      "label": "Validate HTML",
+      "type": "shell",
+      "command": "html-validate",
+      "args": [
+        "docs/*.html"
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Format HTML Files",
+      "type": "shell",
+      "command": "prettier",
+      "args": [
+        "--write",
+        "docs/*.html",
+        "docs/**/*.css",
+        "docs/**/*.js"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Deploy to GitHub Pages",
+      "type": "shell",
+      "command": "git",
+      "args": [
+        "add",
+        ".",
+        "&&",
+        "git",
+        "commit",
+        "-m",
+        "Update website",
+        "&&",
+        "git",
+        "push",
+        "origin",
+        "main"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "new"
+      }
+    }
+  ]
+}
