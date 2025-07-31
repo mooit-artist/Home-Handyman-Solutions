@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobber API Test - Home Handyman Solutions</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-success { background-color: #10b981; }
+        .status-error { background-color: #ef4444; }
+        .status-pending { background-color: #f59e0b; }
+        .test-result {
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        .success { background-color: #f0fdf4; border: 1px solid #10b981; }
+        .error { background-color: #fef2f2; border: 1px solid #ef4444; }
+        .pending { background-color: #fffbeb; border: 1px solid #f59e0b; }
+        button {
+            background: var(--soft-gold);
+            color: var(--dark-walnut);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="test-container">
+            <h1>Jobber API Status Test</h1>
+            
+            <div id="auth-status">
+                <h3><span class="status-indicator" id="auth-indicator"></span>Authentication Status</h3>
+                <p id="auth-message">Checking authentication...</p>
+            </div>
+
+            <div id="api-tests">
+                <h3>API Tests</h3>
+                <button onclick="testAccountInfo()">Test Account Info</button>
+                <button onclick="testClients()">Test Clients</button>
+                <button onclick="testInvoices()">Test Invoices</button>
+                <button onclick="clearResults()">Clear Results</button>
+                
+                <div id="test-results"></div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Check authentication status on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
+        });
+
+        function checkAuthStatus() {
+            const accessToken = localStorage.getItem('jobber_access_token');
+            const refreshToken = localStorage.getItem('jobber_refresh_token');
+            const tokenExpiry = localStorage.getItem('jobber_token_expiry');
+            
+            const indicator = document.getElementById('auth-indicator');
+            const message = document.getElementById('auth-message');
+            
+            if (!accessToken) {
+                indicator.className = 'status-indicator status-error';
+                message.innerHTML = '❌ No access token found. Please complete OAuth authentication first.';
+                document.getElementById('api-tests').style.display = 'none';
+                return;
+            }
+            
+            const expiryTime = tokenExpiry ? new Date(parseInt(tokenExpiry)) : null;
+            const now = new Date();
+            
+            if (expiryTime && expiryTime < now) {
+                indicator.className = 'status-indicator status-error';
+                message.innerHTML = '⚠️ Access token has expired. Please re-authenticate.';
+            } else {
+                indicator.className = 'status-indicator status-success';
+                message.innerHTML = `✅ Authenticated! Token expires: ${expiryTime ? expiryTime.toLocaleString() : 'Unknown'}`;
+            }
+        }
+
+        async function makeJobberAPICall(query, variables = {}) {
+            const accessToken = localStorage.getItem('jobber_access_token');
+            
+            if (!accessToken) {
+                throw new Error('No access token available');
+            }
+
+            const response = await fetch('https://api.getjobber.com/api/graphql', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`,
+                    'X-JOBBER-GRAPHQL-VERSION': '2023-03-15'
+                },
+                body: JSON.stringify({
+                    query: query,
+                    variables: variables
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            
+            if (data.errors) {
+                throw new Error(`GraphQL errors: ${JSON.stringify(data.errors, null, 2)}`);
+            }
+
+            return data.data;
+        }
+
+        async function testAccountInfo() {
+            addTestResult('Testing account information...', 'pending');
+            
+            try {
+                const query = `
+                    query GetAccount {
+                        account {
+                            id
+                            name
+                            email
+                            timeZone
+                            createdAt
+                        }
+                    }
+                `;
+                
+                const result = await makeJobberAPICall(query);
+                addTestResult(`✅ Account Info Success:\n${JSON.stringify(result, null, 2)}`, 'success');
+            } catch (error) {
+                addTestResult(`❌ Account Info Failed:\n${error.message}`, 'error');
+            }
+        }
+
+        async function testClients() {
+            addTestResult('Testing clients list...', 'pending');
+            
+            try {
+                const query = `
+                    query GetClients {
+                        clients(first: 5) {
+                            nodes {
+                                id
+                                name
+                                email
+                                phoneNumber
+                                createdAt
+                            }
+                            totalCount
+                        }
+                    }
+                `;
+                
+                const result = await makeJobberAPICall(query);
+                addTestResult(`✅ Clients Test Success:\nFound ${result.clients.totalCount} total clients\n${JSON.stringify(result, null, 2)}`, 'success');
+            } catch (error) {
+                addTestResult(`❌ Clients Test Failed:\n${error.message}`, 'error');
+            }
+        }
+
+        async function testInvoices() {
+            addTestResult('Testing invoices list...', 'pending');
+            
+            try {
+                const query = `
+                    query GetInvoices {
+                        invoices(first: 5) {
+                            nodes {
+                                id
+                                invoiceNumber
+                                subject
+                                total
+                                status
+                                createdAt
+                                client {
+                                    name
+                                }
+                            }
+                            totalCount
+                        }
+                    }
+                `;
+                
+                const result = await makeJobberAPICall(query);
+                addTestResult(`✅ Invoices Test Success:\nFound ${result.invoices.totalCount} total invoices\n${JSON.stringify(result, null, 2)}`, 'success');
+            } catch (error) {
+                addTestResult(`❌ Invoices Test Failed:\n${error.message}`, 'error');
+            }
+        }
+
+        function addTestResult(message, type) {
+            const resultsDiv = document.getElementById('test-results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${type}`;
+            resultDiv.innerHTML = `<pre>${message}</pre>`;
+            resultsDiv.appendChild(resultDiv);
+            resultsDiv.scrollTop = resultsDiv.scrollHeight;
+        }
+
+        function clearResults() {
+            document.getElementById('test-results').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
