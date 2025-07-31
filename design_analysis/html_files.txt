@@ -1,4 +1,3 @@
-docs/legal.html
 docs/index.html
 docs/pay-bill.html
 docs/about.html
