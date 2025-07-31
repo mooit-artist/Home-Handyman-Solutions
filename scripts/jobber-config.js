@@ -149,8 +149,7 @@ class JobberConfig {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.accessToken}`,
-          'X-JOBBER-GRAPHQL-VERSION': '2023-03-15'
+          'Authorization': `Bearer ${this.accessToken}`
         },
         body: JSON.stringify({
           query: query,
