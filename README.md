@@ -229,16 +229,42 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 🤝 Contributing
 
+We welcome contributions to improve our website and services! Please read our [Contributing Guidelines](CONTRIBUTING.md) for details on:
+
+- How to report bugs and request features
+- Development setup and guidelines
+- Pull request process
+- Code of conduct
+
+### Quick Contribution Steps
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+3. Make your changes and test thoroughly
+4. Commit your changes (`git commit -m 'Add amazing feature'`)
+5. Push to the branch (`git push origin feature/amazing-feature`)
+6. Open a Pull Request using our template
 
-## 📞 Support
+### Issue Templates
+We provide templates for:
+- 🐛 **Bug Reports** - Report website issues or broken functionality
+- � **Feature Requests** - Suggest new features or enhancements
+- ❓ **Questions/Support** - Get help or ask questions
+
+## �📞 Support
 
 For issues or questions:
+
+**Technical Issues:**
 1. Check sync status: `docs/gallery/images/sync-status.json`
 2. Review GitHub Actions logs for detailed error information
 3. Test sync locally first to isolate issues
-4. Open an issue in this repository
+4. [Open an issue](https://github.com/mooit-artist/Home-Handyman-Solutions/issues/new/choose) using our templates
+
+**Business Inquiries:**
+- **Phone**: (402) 555-1234
+- **Email**: info@homehandymansolutionsllc.com
+- **Website**: https://homehandymansolutionsllc.com
+
+**Billing Questions:**
+- **Email**: billing@homehandymansolutionsllc.com
+- **Online**: https://homehandymansolutionsllc.com/pay-bill.html

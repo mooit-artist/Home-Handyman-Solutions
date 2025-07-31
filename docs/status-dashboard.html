@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Status Dashboard - Home Handyman Solutions</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .dashboard {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .status-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--soft-gold);
+        }
+
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-pending { background: #fef3c7; color: #92400e; }
+        .status-scheduled { background: #dbeafe; color: #1e40af; }
+        .status-in_progress { background: #fed7d7; color: #c53030; }
+        .status-completed { background: #d1fae5; color: #065f46; }
+        .status-cancelled { background: #f3f4f6; color: #374151; }
+
+        .priority-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .priority-low { background: #d1fae5; color: #065f46; }
+        .priority-medium { background: #fef3c7; color: #92400e; }
+        .priority-high { background: #fed7d7; color: #c53030; }
+        .priority-urgent { background: #fecaca; color: #991b1b; }
+
+        .search-box {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e5e7eb;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            border-color: var(--soft-gold);
+            background: var(--soft-gold);
+            color: var(--dark-walnut);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--soft-gold);
+        }
+
+        .stat-label {
+            color: var(--slate-gray);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .request-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-label {
+            font-size: 0.75rem;
+            color: var(--slate-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            font-weight: 500;
+            color: var(--dark-walnut);
+        }
+
+        .no-requests {
+            text-align: center;
+            padding: 3rem;
+            color: var(--slate-gray);
+        }
+
+        .refresh-btn {
+            background: var(--soft-gold);
+            color: var(--dark-walnut);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .refresh-btn:hover {
+            background: #c19b26;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">Home Handyman Solutions LLC</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="gallery.html">Our Work</a></li>
+                    <li><a href="pay-bill.html">Pay Bill</a></li>
+                    <li><a href="legal.html">Legal</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu">☰</button>
+        </div>
+    </header>
+
+    <main>
+        <div class="dashboard">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h1>📋 Request Status Dashboard</h1>
+                <p style="color: var(--slate-gray);">Monitor your service requests in real-time</p>
+            </div>
+
+            <button class="refresh-btn" onclick="loadRequests()">🔄 Refresh Status</button>
+
+            <div class="stats-grid" id="stats-grid">
+                <!-- Stats will be populated here -->
+            </div>
+
+            <input type="text" class="search-box" id="search-box" placeholder="🔍 Search by request number, client name, or service type...">
+
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="pending">Pending</button>
+                <button class="filter-btn" data-filter="scheduled">Scheduled</button>
+                <button class="filter-btn" data-filter="in_progress">In Progress</button>
+                <button class="filter-btn" data-filter="completed">Completed</button>
+                <button class="filter-btn" data-filter="cancelled">Cancelled</button>
+            </div>
+
+            <div id="requests-container">
+                <!-- Requests will be populated here -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Home Handyman Solutions LLC. All rights reserved.</p>
+            <p>Serving Nebraska & Iowa</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sample data - in production, this would come from your API
+        let allRequests = [];
+        let currentFilter = 'all';
+
+        // Status emojis
+        const statusEmojis = {
+            pending: '⏳',
+            scheduled: '📅',
+            in_progress: '🔨',
+            completed: '✅',
+            cancelled: '❌'
+        };
+
+        // Priority emojis
+        const priorityEmojis = {
+            low: '🟢',
+            medium: '🟡',
+            high: '🟠',
+            urgent: '🔴'
+        };
+
+        // Load requests from submitted-requests.json
+        async function loadRequests() {
+            try {
+                // In a real application, this would be an API call
+                // For demo purposes, we'll use mock data
+                allRequests = [
+                    {
+                        requestId: 'req_eeody',
+                        requestNumber: 'REQ-2025-393',
+                        serviceType: 'Drywall Repair',
+                        clientName: 'John Doe',
+                        clientEmail: 'john.doe@example.com',
+                        clientPhone: '(402) 555-1234',
+                        location: '123 Main Street, Omaha, NE 68102',
+                        priority: 'high',
+                        description: 'Need repair for hole in living room wall caused by moving furniture.',
+                        estimatedCost: '250.00',
+                        submittedAt: '2025-07-31T17:49:01.792Z',
+                        currentStatus: 'scheduled',
+                        lastUpdated: '2025-07-31T17:53:01.000Z',
+                        estimatedCompletion: '2025-08-02'
+                    }
+                ];
+
+                updateStats();
+                renderRequests();
+                console.log('✅ Requests loaded successfully');
+            } catch (error) {
+                console.error('❌ Error loading requests:', error);
+                document.getElementById('requests-container').innerHTML = `
+                    <div class="no-requests">
+                        <h3>❌ Error Loading Requests</h3>
+                        <p>Unable to load request data. Please try again later.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Update statistics
+        function updateStats() {
+            const stats = {
+                total: allRequests.length,
+                pending: allRequests.filter(r => r.currentStatus === 'pending').length,
+                scheduled: allRequests.filter(r => r.currentStatus === 'scheduled').length,
+                in_progress: allRequests.filter(r => r.currentStatus === 'in_progress').length,
+                completed: allRequests.filter(r => r.currentStatus === 'completed').length
+            };
+
+            const statsGrid = document.getElementById('stats-grid');
+            statsGrid.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${stats.total}</div>
+                    <div class="stat-label">Total Requests</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.pending}</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.scheduled}</div>
+                    <div class="stat-label">Scheduled</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.in_progress}</div>
+                    <div class="stat-label">In Progress</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.completed}</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+            `;
+        }
+
+        // Render requests
+        function renderRequests() {
+            const container = document.getElementById('requests-container');
+            const searchTerm = document.getElementById('search-box').value.toLowerCase();
+
+            let filteredRequests = allRequests;
+
+            // Apply status filter
+            if (currentFilter !== 'all') {
+                filteredRequests = filteredRequests.filter(r => r.currentStatus === currentFilter);
+            }
+
+            // Apply search filter
+            if (searchTerm) {
+                filteredRequests = filteredRequests.filter(r =>
+                    r.requestNumber.toLowerCase().includes(searchTerm) ||
+                    r.clientName.toLowerCase().includes(searchTerm) ||
+                    r.serviceType.toLowerCase().includes(searchTerm) ||
+                    r.location.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            if (filteredRequests.length === 0) {
+                container.innerHTML = `
+                    <div class="no-requests">
+                        <h3>📭 No Requests Found</h3>
+                        <p>No requests match your current filters.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filteredRequests.map(request => `
+                <div class="status-card">
+                    <div class="status-header">
+                        <div>
+                            <h3>${statusEmojis[request.currentStatus]} ${request.requestNumber}</h3>
+                            <p style="color: var(--slate-gray); margin: 0;">${request.serviceType}</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="status-badge status-${request.currentStatus}">${request.currentStatus.replace('_', ' ')}</div>
+                            <div class="priority-badge priority-${request.priority}" style="margin-top: 0.5rem;">
+                                ${priorityEmojis[request.priority]} ${request.priority.toUpperCase()}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="request-details">
+                        <div class="detail-item">
+                            <div class="detail-label">Client</div>
+                            <div class="detail-value">${request.clientName}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Location</div>
+                            <div class="detail-value">${request.location}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Submitted</div>
+                            <div class="detail-value">${new Date(request.submittedAt).toLocaleDateString()}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Estimated Cost</div>
+                            <div class="detail-value">$${request.estimatedCost}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Est. Completion</div>
+                            <div class="detail-value">${request.estimatedCompletion ? new Date(request.estimatedCompletion).toLocaleDateString() : 'TBD'}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Contact</div>
+                            <div class="detail-value">${request.clientPhone}</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;">
+                        <div class="detail-label">Description</div>
+                        <div class="detail-value">${request.description}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Set up event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load initial data
+            loadRequests();
+
+            // Search functionality
+            document.getElementById('search-box').addEventListener('input', renderRequests);
+
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Update active state
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Update filter
+                    currentFilter = this.dataset.filter;
+                    renderRequests();
+                });
+            });
+
+            // Mobile menu
+            document.querySelector('.mobile-menu').addEventListener('click', function() {
+                const nav = document.querySelector('nav ul');
+                nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+            });
+        });
+    </script>
+</body>
+</html>

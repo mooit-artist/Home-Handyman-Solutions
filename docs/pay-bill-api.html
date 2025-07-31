@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Security Headers -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://ajax.googleapis.com https://cdnjs.cloudflare.com https://*.getjobber.com https://api.getjobber.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://*.getjobber.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://api.printify.com https://fonts.googleapis.com https://*.getjobber.com https://api.getjobber.com; frame-src 'self' https://*.getjobber.com; object-src 'none'; base-uri 'self'; form-action 'self' https://*.getjobber.com; upgrade-insecure-requests;"
+    />
+
+    <!-- Additional Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <meta
+      http-equiv="Referrer-Policy"
+      content="strict-origin-when-cross-origin"
+    />
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Pay your Home Handyman Solutions LLC invoice online securely through our integrated Jobber payment system."
+    />
+    <meta
+      name="keywords"
+      content="pay invoice online, handyman payment, bill pay, secure payment, Jobber API"
+    />
+    <title>Pay Your Bill - Home Handyman Solutions LLC</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect fill='%233c2e26' width='32' height='32'/><path fill='%23d4af37' d='M8 12h16v2H8zm0 4h16v2H8zm0 4h12v2H8z'/></svg>"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <div class="logo">Home Handyman Solutions LLC</div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="gallery.html">Our Work</a></li>
+            <li><a href="pay-bill.html">Pay Bill</a></li>
+            <li><a href="legal.html">Legal</a></li>
+          </ul>
+        </nav>
+        <button class="mobile-menu">☰</button>
+      </div>
+    </header>
+
+    <main>
+      <section style="padding-top: 2rem">
+        <h2>Pay Your Bill Online</h2>
+        <p
+          style="
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 1rem auto;
+            font-size: 1.1rem;
+            color: var(--slate-gray);
+          "
+        >
+          Pay your Home Handyman Solutions LLC invoice quickly and securely
+          through our integrated payment system.
+        </p>
+      </section>
+
+      <section class="contact-content">
+        <!-- Jobber Payment Widget Container -->
+        <div id="jobber-payment-widget" style="grid-column: 1 / -1; margin-bottom: 2rem;">
+          <!-- Widget will be rendered here -->
+        </div>
+
+        <div class="contact-form">
+          <h3>💡 Alternative Payment Options</h3>
+
+          <div style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+          ">
+            <div style="background: var(--white); padding: 1.5rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+              <h4 style="color: var(--dark-walnut); margin-bottom: 1rem;">📞 Call to Pay</h4>
+              <p style="color: var(--slate-gray); margin-bottom: 1rem;">
+                Call us directly to process your payment over the phone.
+              </p>
+              <a href="tel:+14025551234" style="color: var(--soft-gold); text-decoration: none; font-weight: bold;">
+                (402) 555-1234
+              </a>
+              <p style="margin-top: 0.5rem; color: var(--slate-gray); font-size: 0.9rem;">
+                Monday-Friday, 8:00 AM - 6:00 PM
+              </p>
+            </div>
+
+            <div style="background: var(--white); padding: 1.5rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+              <h4 style="color: var(--dark-walnut); margin-bottom: 1rem;">✉️ Email Support</h4>
+              <p style="color: var(--slate-gray); margin-bottom: 1rem;">
+                Email us for billing questions or payment assistance.
+              </p>
+              <a href="mailto:billing@homehandymansolutionsllc.com" style="color: var(--soft-gold); text-decoration: none; font-weight: bold;">
+                billing@homehandymansolutionsllc.com
+              </a>
+            </div>
+
+            <div style="background: var(--white); padding: 1.5rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+              <h4 style="color: var(--dark-walnut); margin-bottom: 1rem;">🔗 Jobber Client Hub</h4>
+              <p style="color: var(--slate-gray); margin-bottom: 1rem;">
+                Access the original Jobber payment portal if needed.
+              </p>
+              <button onclick="openJobberHub()" style="
+                background: var(--soft-gold);
+                color: var(--dark-walnut);
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 6px;
+                cursor: pointer;
+                font-weight: bold;
+              ">
+                Open Jobber Hub
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-info">
+          <h3>🔒 Security & Privacy</h3>
+
+          <div
+            style="
+              background: var(--light-gray);
+              padding: 1.5rem;
+              border-radius: 10px;
+              margin-bottom: 1.5rem;
+            "
+          >
+            <h4 style="color: var(--dark-walnut); margin-bottom: 1rem">
+              🛡️ Secure Payment Processing
+            </h4>
+            <ul style="color: var(--slate-gray); line-height: 1.6">
+              <li>All payments processed through Jobber's secure API</li>
+              <li>PCI DSS compliant payment processing</li>
+              <li>End-to-end SSL encryption for all transactions</li>
+              <li>Your financial information is never stored on our servers</li>
+              <li>Real-time invoice lookup and payment confirmation</li>
+            </ul>
+          </div>
+
+          <div
+            style="
+              background: var(--white);
+              padding: 1.5rem;
+              border-radius: 10px;
+              border: 1px solid #e2e8f0;
+              margin-bottom: 1.5rem;
+            "
+          >
+            <h4 style="color: var(--dark-walnut); margin-bottom: 1rem">
+              💳 Accepted Payment Methods
+            </h4>
+            <ul style="color: var(--slate-gray); line-height: 1.6">
+              <li>✅ Credit Cards (Visa, MasterCard, American Express)</li>
+              <li>✅ Debit Cards</li>
+              <li>✅ Bank Transfers (ACH)</li>
+              <li>✅ Phone Payments</li>
+              <li>✅ Jobber Client Hub Portal</li>
+            </ul>
+          </div>
+
+          <div
+            style="
+              background: var(--light-gray);
+              padding: 1.5rem;
+              border-radius: 10px;
+            "
+          >
+            <h4 style="color: var(--dark-walnut); margin-bottom: 1rem">
+              ❓ Need Help?
+            </h4>
+            <p style="color: var(--slate-gray); line-height: 1.6; margin-bottom: 1rem">
+              If you have any questions about your invoice or need assistance with payment:
+            </p>
+            <p style="margin-bottom: 0.5rem">
+              <strong>Email:</strong>
+              <a href="mailto:billing@homehandymansolutionsllc.com" style="color: var(--soft-gold)">
+                billing@homehandymansolutionsllc.com
+              </a>
+            </p>
+            <p style="margin-bottom: 0.5rem">
+              <strong>Phone:</strong>
+              <a href="tel:+14025551234" style="color: var(--soft-gold)">
+                (402) 555-1234
+              </a>
+            </p>
+            <p>
+              <strong>Business Hours:</strong> Monday-Friday, 8:00 AM - 6:00 PM
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>&copy; 2025 Home Handyman Solutions LLC. All rights reserved.</p>
+        <p>Serving Nebraska & Iowa</p>
+      </div>
+    </footer>
+
+    <!-- Load Jobber API Scripts -->
+    <script src="../scripts/jobber-config.js"></script>
+    <script src="../scripts/jobber-service.js"></script>
+    <script src="../scripts/jobber-payment-widget.js"></script>
+
+    <script>
+      // Mobile menu toggle
+      document
+        .querySelector(".mobile-menu")
+        .addEventListener("click", function () {
+          const nav = document.querySelector("nav ul");
+          nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+        });
+
+      // Original Jobber Hub Configuration (fallback)
+      const JOBBER_CONFIG = {
+        clientHubUrl: 'https://clienthub.getjobber.com/client_hubs/d050407f-bff1-45f6-8f57-7a3fe3c94330/login/new?source=share_login'
+      };
+
+      function openJobberHub() {
+        window.open(JOBBER_CONFIG.clientHubUrl, '_blank');
+      }
+
+      // Initialize the Jobber Payment Widget
+      document.addEventListener('DOMContentLoaded', function() {
+        try {
+          const widget = new JobberPaymentWidget('jobber-payment-widget', {
+            showInvoiceDetails: true,
+            allowInvoiceSearch: true,
+            redirectAfterPayment: '/payment-success.html'
+          });
+          console.log('Jobber Payment Widget initialized successfully');
+        } catch (error) {
+          console.error('Error initializing Jobber Payment Widget:', error);
+
+          // Fallback to simple message with Jobber Hub link
+          const container = document.getElementById('jobber-payment-widget');
+          container.innerHTML = `
+            <div style="background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 1rem; border-radius: 8px; text-align: center;">
+              <p><strong>Payment Widget Unavailable</strong></p>
+              <p>Please use the Jobber Client Hub or call us directly to make your payment.</p>
+              <button onclick="openJobberHub()" style="
+                background: var(--soft-gold);
+                color: var(--dark-walnut);
+                border: none;
+                padding: 0.75rem 1.5rem;
+                border-radius: 6px;
+                cursor: pointer;
+                font-weight: bold;
+                margin-top: 0.5rem;
+              ">
+                Open Jobber Client Hub
+              </button>
+            </div>
+          `;
+        }
+      });
+    </script>
+  </body>
+</html>

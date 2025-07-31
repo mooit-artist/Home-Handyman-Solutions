@@ -527,15 +527,13 @@
               ></textarea>
             </div>
             <div class="form-group">
-              <label for="budget-range">Budget Range (Optional)</label>
+              <label for="budget-range">Project Size (Optional)</label>
               <select id="budget-range" name="budget_range">
-                <option value="">Select budget range...</option>
-                <option value="Under $500">Under $500</option>
-                <option value="$500 - $1,000">$500 - $1,000</option>
-                <option value="$1,000 - $3,000">$1,000 - $3,000</option>
-                <option value="$3,000 - $5,000">$3,000 - $5,000</option>
-                <option value="$5,000 - $10,000">$5,000 - $10,000</option>
-                <option value="Over $10,000">Over $10,000</option>
+                <option value="">Select project size...</option>
+                <option value="Small">Small Project</option>
+                <option value="Medium">Medium Project</option>
+                <option value="Large">Large Project</option>
+                <option value="Major">Major Project</option>
               </select>
             </div>
           </div>
@@ -704,191 +702,6 @@
               </div>
             </div>
           </div>
-
-          <!-- Static Price Reference Guide -->
-          <div
-            style="
-              background: var(--light-gray);
-              border-radius: 15px;
-              padding: 2rem;
-              margin: 2rem 0;
-            "
-          >
-            <h3
-              style="
-                color: var(--dark-walnut);
-                margin-bottom: 1.5rem;
-                text-align: center;
-              "
-            >
-              💰 Quick Price Reference
-            </h3>
-
-            <div
-              style="
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 1rem;
-                margin-bottom: 2rem;
-              "
-            >
-              <div
-                style="
-                  background: var(--white);
-                  padding: 1.5rem;
-                  border-radius: 10px;
-                  text-align: center;
-                "
-              >
-                <h4 style="color: var(--dark-walnut); margin-bottom: 1rem">
-                  Drywall Services
-                </h4>
-                <div style="font-size: 0.9rem; color: var(--slate-gray)">
-                  <p><strong>Level 3:</strong> $2-3/sq ft</p>
-                  <p><strong>Level 4:</strong> $3-4/sq ft</p>
-                  <p><strong>Level 5:</strong> $4-5/sq ft</p>
-                  <p style="margin-top: 0.5rem; font-size: 0.8rem">
-                    Example: 500 sq ft Level 4 = $1,500-2,000
-                  </p>
-                </div>
-              </div>
-
-              <div
-                style="
-                  background: var(--white);
-                  padding: 1.5rem;
-                  border-radius: 10px;
-                  text-align: center;
-                "
-              >
-                <h4 style="color: var(--dark-walnut); margin-bottom: 1rem">
-                  Deck Repair
-                </h4>
-                <div style="font-size: 0.9rem; color: var(--slate-gray)">
-                  <p><strong>Basic:</strong> $15-20/sq ft</p>
-                  <p><strong>Standard:</strong> $20-25/sq ft</p>
-                  <p><strong>Premium:</strong> $25-35/sq ft</p>
-                  <p style="margin-top: 0.5rem; font-size: 0.8rem">
-                    Example: 200 sq ft Standard = $4,000-5,000
-                  </p>
-                </div>
-              </div>
-
-              <div
-                style="
-                  background: var(--white);
-                  padding: 1.5rem;
-                  border-radius: 10px;
-                  text-align: center;
-                "
-              >
-                <h4 style="color: var(--dark-walnut); margin-bottom: 1rem">
-                  Other Services
-                </h4>
-                <div style="font-size: 0.9rem; color: var(--slate-gray)">
-                  <p><strong>Electrical:</strong> $150-400/service</p>
-                  <p><strong>Bathroom:</strong> $300-1,200/project</p>
-                  <p><strong>Doors/Windows:</strong> $200-600/unit</p>
-                  <p><strong>Plumbing:</strong> $200-500/service</p>
-                </div>
-              </div>
-            </div>
-
-            <div
-              style="
-                background: rgba(255, 255, 255, 0.9);
-                padding: 1.5rem;
-                border-radius: 10px;
-                margin-top: 1rem;
-              "
-            >
-              <h4
-                style="
-                  color: var(--dark-walnut);
-                  margin-bottom: 1rem;
-                  text-align: center;
-                "
-              >
-                📊 Additional Cost Factors
-              </h4>
-              <div
-                style="
-                  display: grid;
-                  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                  gap: 1rem;
-                  font-size: 0.9rem;
-                  color: var(--slate-gray);
-                "
-              >
-                <div>
-                  <p><strong>High Ceilings (10ft+):</strong> +20-30%</p>
-                  <p><strong>Material Supply:</strong> +30-40%</p>
-                </div>
-                <div>
-                  <p><strong>Urgent Timeline:</strong> +20-30%</p>
-                  <p><strong>Emergency Service:</strong> +50-60%</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="submit-section">
-            <button type="submit" class="submit-btn">
-              📊 Get Official Quote & Schedule
-            </button>
-            <p
-              style="
-                margin-top: 1rem;
-                color: var(--slate-gray);
-                font-size: 0.9rem;
-              "
-            >
-              Submit this form to receive an official quote and schedule your
-              project.
-            </p>
-          </div>
-        </form>
-      </div>
-
-      <!-- Price Guide Section -->
-      <div class="price-guide" style="max-width: 800px; margin: 3rem auto">
-        <h4>💰 General Price Guide</h4>
-        <div class="price-guide-grid">
-          <div class="price-item">
-            <h5>Drywall Services</h5>
-            <p>$2-4 per sq ft<br />Depends on finish level</p>
-          </div>
-          <div class="price-item">
-            <h5>Deck Repair</h5>
-            <p>$15-30 per sq ft<br />Varies by materials</p>
-          </div>
-          <div class="price-item">
-            <h5>Electrical Work</h5>
-            <p>$100-300 per service<br />Plus materials</p>
-          </div>
-          <div class="price-item">
-            <h5>Bathroom Repairs</h5>
-            <p>$200-800 per project<br />Based on complexity</p>
-          </div>
-          <div class="price-item">
-            <h5>Door & Window</h5>
-            <p>$150-500 per unit<br />Installation included</p>
-          </div>
-          <div class="price-item">
-            <h5>Plumbing Repairs</h5>
-            <p>$150-400 per service<br />Emergency rates higher</p>
-          </div>
-        </div>
-        <p
-          style="
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            color: var(--slate-gray);
-          "
-        >
-          *Prices are estimates only. Actual costs may vary based on project
-          specifics, materials, and site conditions.
         </p>
       </div>
     </main>
@@ -896,7 +709,7 @@
     <footer>
       <div class="footer-content">
         <p>&copy; 2025 Home Handyman Solutions LLC. All rights reserved.</p>
-        <p>Licensed Contractor | Serving Nebraska & Iowa</p>
+        <p>Serving Nebraska & Iowa</p>
       </div>
     </footer>
 

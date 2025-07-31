@@ -1,0 +1,1 @@
+https://api.getjobber.com/oauth/authorize?client_id=d050407f-bff1-45f6-8f57-7a3fe3c94330&redirect_uri=https://homehandymansolutionsllc.com/oauth-callback.html

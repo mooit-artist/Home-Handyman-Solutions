@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📞 Phone Support
+    url: https://homehandymansolutionsllc.com/contact.html
+    about: Call us directly for immediate assistance - (402) 555-1234
+  - name: ✉️ Email Support
+    url: https://homehandymansolutionsllc.com/contact.html
+    about: Send us an email for general inquiries - info@homehandymansolutionsllc.com
+  - name: 💳 Billing Questions
+    url: https://homehandymansolutionsllc.com/pay-bill.html
+    about: Contact our billing department or pay your bill online
+  - name: 🌐 Visit Our Website
+    url: https://homehandymansolutionsllc.com
+    about: Visit our website for services, gallery, and more information

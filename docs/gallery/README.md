@@ -36,7 +36,7 @@ Use the exact filenames shown above. The gallery page expects these specific nam
 
 ## Adding New Images
 
-1. **For customers**: Email photos to info@homehandymansolutions.com
+1. **For customers**: Email photos to info@homehandymansolutionsllc.com
 2. **For developers**: Upload images to the appropriate category folder with the correct filename
 3. **For additional projects**: You can add new numbered images (e.g., `drywall-repair-2.jpg`) and update the HTML accordingly
 

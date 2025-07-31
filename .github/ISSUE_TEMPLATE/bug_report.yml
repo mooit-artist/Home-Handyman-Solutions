@@ -1,0 +1,112 @@
+name: 🐛 Bug Report
+description: Report a bug or issue with the website or services
+title: "[BUG] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug! Please fill out the form below to help us understand and fix the issue.
+
+  - type: dropdown
+    id: bug-area
+    attributes:
+      label: Area Affected
+      description: Which area of the business is affected by this bug?
+      options:
+        - Website
+        - Contact Forms
+        - Payment System
+        - Gallery/Photos
+        - Mobile Experience
+        - Performance
+        - Security
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How severe is this bug?
+      options:
+        - Low - Minor issue, workaround available
+        - Medium - Noticeable issue, impacts some functionality
+        - High - Major issue, significantly impacts functionality
+        - Critical - Severe issue, breaks core functionality
+    validations:
+      required: true
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Bug Description
+      description: Provide a clear and concise description of the bug
+      placeholder: Describe what the bug is...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Tell us how to reproduce this bug
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: Describe what you expected to happen...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: Describe what actually happened...
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Please provide details about your environment
+      placeholder: |
+        - Device: [e.g. iPhone 12, Desktop PC, iPad]
+        - OS: [e.g. iOS 15, Windows 11, macOS 12]
+        - Browser: [e.g. Chrome 95, Safari 15, Firefox 94]
+        - Screen size: [e.g. mobile, tablet, desktop]
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add any other context about the problem here, including screenshots if helpful
+      placeholder: Any additional information that might be helpful...
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Confirmation
+      description: Please confirm the following
+      options:
+        - label: I have searched existing issues to ensure this bug hasn't been reported before
+          required: true
+        - label: I have provided clear steps to reproduce the issue
+          required: true

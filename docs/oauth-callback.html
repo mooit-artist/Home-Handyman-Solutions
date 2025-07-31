@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OAuth Callback - Home Handyman Solutions</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .callback-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            text-align: center;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .spinner {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid var(--soft-gold);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="callback-container">
+            <div class="spinner"></div>
+            <h2>Processing OAuth Callback</h2>
+            <p id="status">Authenticating with Jobber...</p>
+            <div id="result" style="display: none;"></div>
+        </div>
+    </main>
+
+    <script src="../scripts/jobber-config.js"></script>
+    <script>
+        // Handle OAuth callback
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            const state = urlParams.get('state');
+            const error = urlParams.get('error');
+
+            const statusEl = document.getElementById('status');
+            const resultEl = document.getElementById('result');
+
+            if (error) {
+                statusEl.textContent = 'Authentication failed';
+                resultEl.innerHTML = `<p style="color: red;">Error: ${error}</p>`;
+                resultEl.style.display = 'block';
+                return;
+            }
+
+            if (!code) {
+                statusEl.textContent = 'No authorization code received';
+                resultEl.innerHTML = '<p style="color: red;">Invalid callback - no authorization code</p>';
+                resultEl.style.display = 'block';
+                return;
+            }
+
+            // Process the authorization code
+            const config = new JobberConfig();
+            config.loadCredentials();
+
+            config.exchangeCodeForToken(code, window.location.origin + '/oauth-callback.html')
+                .then(tokenData => {
+                    statusEl.textContent = 'Authentication successful!';
+                    resultEl.innerHTML = `
+                        <p style="color: green;">✅ Successfully authenticated with Jobber</p>
+                        <p>You can now close this window and return to the payment page.</p>
+                        <button onclick="window.close()" style="
+                            background: var(--soft-gold);
+                            color: var(--dark-walnut);
+                            border: none;
+                            padding: 0.75rem 1.5rem;
+                            border-radius: 6px;
+                            cursor: pointer;
+                            font-weight: bold;
+                            margin-top: 1rem;
+                        ">Close Window</button>
+                    `;
+                    resultEl.style.display = 'block';
+
+                    // Notify parent window if opened in popup
+                    if (window.opener) {
+                        window.opener.postMessage({
+                            type: 'oauth_success',
+                            data: tokenData
+                        }, window.location.origin);
+                    }
+                })
+                .catch(error => {
+                    console.error('OAuth error:', error);
+                    statusEl.textContent = 'Authentication failed';
+                    resultEl.innerHTML = `<p style="color: red;">❌ Authentication error: ${error.message}</p>`;
+                    resultEl.style.display = 'block';
+                });
+        });
+    </script>
+</body>
+</html>

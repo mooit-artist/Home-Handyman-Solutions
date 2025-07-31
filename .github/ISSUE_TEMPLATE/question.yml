@@ -1,0 +1,69 @@
+name: ❓ Question or Support
+description: Ask a question or request support
+title: "[QUESTION] "
+labels: ["question", "support"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reaching out! Please fill out the form below so we can help you.
+
+  - type: dropdown
+    id: question-category
+    attributes:
+      label: Question Category
+      description: What type of question do you have?
+      options:
+        - Services & Pricing
+        - Website Usage
+        - Payment & Billing
+        - Scheduling & Availability
+        - Project Consultation
+        - Technical Support
+        - Business Inquiry
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: Please describe your question or what you need help with
+      placeholder: Describe your question in detail...
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Provide any additional context that might help us answer your question
+      placeholder: Any background information or specific details...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency
+      description: How urgent is this question?
+      options:
+        - Low - General inquiry
+        - Medium - Need answer within a few days
+        - High - Need answer within 24 hours
+        - Urgent - Need immediate response
+    validations:
+      required: true
+
+  - type: textarea
+    id: contact-preference
+    attributes:
+      label: Preferred Contact Method
+      description: How would you prefer to be contacted for a response?
+      placeholder: |
+        - Email: your-email@example.com
+        - Phone: (555) 123-4567
+        - GitHub response is fine
+    validations:
+      required: false

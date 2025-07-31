@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Security Headers -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://ajax.googleapis.com https://cdnjs.cloudflare.com https://*.getjobber.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://*.getjobber.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://api.printify.com https://fonts.googleapis.com https://*.getjobber.com; frame-src 'self' https://*.getjobber.com; object-src 'none'; base-uri 'self'; form-action 'self' https://*.getjobber.com; upgrade-insecure-requests;"
+    />
+
+    <!-- Additional Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <meta
+      http-equiv="Referrer-Policy"
+      content="strict-origin-when-cross-origin"
+    />
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Pay your Home Handyman Solutions LLC invoice online securely through Jobber. Quick and convenient payment options for completed work."
+    />
+    <meta
+      name="keywords"
+      content="pay invoice online, handyman payment, bill pay, secure payment, Jobber"
+    />
+    <title>Pay Your Bill - Home Handyman Solutions LLC</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect fill='%233c2e26' width='32' height='32'/><path fill='%23d4af37' d='M8 12h16v2H8zm0 4h16v2H8zm0 4h12v2H8z'/></svg>"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <div class="logo">Home Handyman Solutions LLC</div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="gallery.html">Our Work</a></li>
+            <li><a href="pay-bill.html">Pay Bill</a></li>
+            <li><a href="legal.html">Legal</a></li>
+          </ul>
+        </nav>
+        <button class="mobile-menu">☰</button>
+      </div>
+    </header>
+
+    <main>
+      <section style="padding-top: 2rem">
+        <h2>Pay Your Bill Online</h2>
+        <p
+          style="
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+            font-size: 1.1rem;
+            color: var(--slate-gray);
+          "
+        >
+          Pay your Home Handyman Solutions LLC invoice quickly and securely
+          through our Jobber payment portal. We accept all major payment methods.
+        </p>
+      </section>
+
+      <section
+        style="
+          background-color: var(--light-gray);
+          margin: 0 -2rem 3rem;
+          padding: 2rem;
+        "
+      >
+        <div style="max-width: 800px; margin: 0 auto; text-align: center">
+          <h3 style="color: var(--dark-walnut); margin-bottom: 2rem">
+            Secure Payment Through Jobber
+          </h3>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+              gap: 1rem;
+            "
+          >
+            <div
+              style="
+                background: var(--white);
+                padding: 1rem;
+                border-radius: 10px;
+                border: 1px solid #e2e8f0;
+              "
+            >
+              <div style="font-size: 2rem; margin-bottom: 0.5rem">💳</div>
+              <p style="font-weight: bold; color: var(--dark-walnut)">
+                Credit Cards
+              </p>
+              <p style="font-size: 0.9rem; color: var(--slate-gray)">
+                Visa, MasterCard, American Express
+              </p>
+            </div>
+            <div
+              style="
+                background: var(--white);
+                padding: 1rem;
+                border-radius: 10px;
+                border: 1px solid #e2e8f0;
+              "
+            >
+              <div style="font-size: 2rem; margin-bottom: 0.5rem">🏦</div>
+              <p style="font-weight: bold; color: var(--dark-walnut)">
+                Bank Transfer
+              </p>
+              <p style="font-size: 0.9rem; color: var(--slate-gray)">
+                ACH Direct Transfer
+              </p>
+            </div>
+            <div
+              style="
+                background: var(--white);
+                padding: 1rem;
+                border-radius: 10px;
+                border: 1px solid #e2e8f0;
+              "
+            >
+              <div style="font-size: 2rem; margin-bottom: 0.5rem">📱</div>
+              <p style="font-weight: bold; color: var(--dark-walnut)">
+                Digital Wallets
+              </p>
+              <p style="font-size: 0.9rem; color: var(--slate-gray)">
+                PayPal, Apple Pay, Google Pay
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-content">
+        <div class="contact-form">
+          <h3>💳 Pay Through Jobber</h3>
+          <p style="margin-bottom: 2rem; color: var(--slate-gray); text-align: center;">
+            Use our secure Jobber payment portal to pay your invoice quickly and safely.
+          </p>
+
+          <!-- Jobber Payment Widget Integration -->
+          <div id="jobber-payment-widget" style="margin: 2rem 0;">
+            <div style="
+              background: var(--light-gray);
+              padding: 2rem;
+              border-radius: 10px;
+              text-align: center;
+              border: 2px solid var(--soft-gold);
+            ">
+              <h4 style="color: var(--dark-walnut); margin-bottom: 1rem;">
+                🔗 Jobber Payment Portal
+              </h4>
+              <p style="margin-bottom: 2rem; color: var(--slate-gray);">
+                To pay your invoice, you'll be redirected to our secure Jobber payment portal.
+              </p>
+
+              <!-- You'll replace this URL with your actual Jobber payment portal URL -->
+              <div style="background: var(--white); padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+                <p style="margin-bottom: 1rem; font-weight: bold; color: var(--dark-walnut);">
+                  Step 1: Have your invoice number ready
+                </p>
+                <p style="margin-bottom: 1rem; color: var(--slate-gray);">
+                  You'll need your invoice number to access the payment portal.
+                </p>
+
+                <button
+                   type="button"
+                   class="btn"
+                   style="margin-top: 1rem;"
+                   onclick="openJobberPayment()">
+                  💳 Pay Invoice with Jobber
+                </button>
+              </div>
+
+              <!-- Alternative: Direct invoice lookup -->
+              <div style="background: var(--white); padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+                <h5 style="color: var(--dark-walnut); margin-bottom: 1rem;">
+                  Don't have your invoice number?
+                </h5>
+                <div class="form-group" style="margin-bottom: 1rem;">
+                  <input
+                    type="email"
+                    id="customer-email"
+                    placeholder="Enter your email address"
+                    style="width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 5px;"
+                  />
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  onclick="lookupInvoices()">
+                  📧 Send Me My Invoices
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Alternative Payment Methods -->
+          <div style="margin-top: 2rem; text-align: center;">
+            <h4 style="color: var(--dark-walnut); margin-bottom: 1rem;">
+              Other Payment Options
+            </h4>
+            <div style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+              gap: 1rem;
+              margin-top: 1rem;
+            ">
+              <div style="background: var(--white); padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <p style="font-weight: bold; color: var(--dark-walnut); margin-bottom: 0.5rem;">📞 Call to Pay</p>
+                <a href="tel:+14025551234" style="color: var(--soft-gold); text-decoration: none;">
+                  (402) 555-1234
+                </a>
+              </div>
+              <div style="background: var(--white); padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <p style="font-weight: bold; color: var(--dark-walnut); margin-bottom: 0.5rem;">✉️ Email</p>
+                <a href="mailto:billing@homehandymansolutionsllc.com" style="color: var(--soft-gold); text-decoration: none;">
+                  billing@homehandymansolutionsllc.com
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-info">
+          <h3>💡 Payment Information</h3>
+
+          <div
+            style="
+              background: var(--light-gray);
+              padding: 1.5rem;
+              border-radius: 10px;
+              margin-bottom: 2rem;
+            "
+          >
+            <h4 style="color: var(--dark-walnut); margin-bottom: 1rem">
+              📋 How to Pay with Jobber
+            </h4>
+            <ol style="color: var(--slate-gray); line-height: 1.6">
+              <li>Click the "Pay Invoice with Jobber" button above</li>
+              <li>Enter your invoice number when prompted</li>
+              <li>Choose your preferred payment method</li>
+              <li>Complete the secure payment process</li>
+              <li>Receive instant confirmation via email</li>
+            </ol>
+          </div>
+
+          <div
+            style="
+              background: var(--white);
+              padding: 1.5rem;
+              border-radius: 10px;
+              border: 1px solid #e2e8f0;
+              margin-bottom: 2rem;
+            "
+          >
+            <h4 style="color: var(--dark-walnut); margin-bottom: 1rem">
+              🔒 Security & Privacy
+            </h4>
+            <ul style="color: var(--slate-gray); line-height: 1.6">
+              <li>All payments processed through Jobber's secure platform</li>
+              <li>PCI DSS compliant payment processing</li>
+              <li>SSL encryption for all transactions</li>
+              <li>Your financial information is never stored</li>
+            </ul>
+          </div>
+
+          <div
+            style="
+              background: var(--light-gray);
+              padding: 1.5rem;
+              border-radius: 10px;
+            "
+          >
+            <h4 style="color: var(--dark-walnut); margin-bottom: 1rem">
+              ❓ Need Help?
+            </h4>
+            <p style="color: var(--slate-gray); line-height: 1.6; margin-bottom: 1rem">
+              If you have any questions about your invoice or need assistance with payment:
+            </p>
+            <p style="margin-bottom: 0.5rem">
+              <strong>Email:</strong>
+              <a href="mailto:billing@homehandymansolutionsllc.com" style="color: var(--soft-gold)">
+                billing@homehandymansolutionsllc.com
+              </a>
+            </p>
+            <p style="margin-bottom: 0.5rem">
+              <strong>Phone:</strong>
+              <a href="tel:+14025551234" style="color: var(--soft-gold)">
+                (402) 555-1234
+              </a>
+            </p>
+            <p>
+              <strong>Business Hours:</strong> Monday-Friday, 8:00 AM - 6:00 PM
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>&copy; 2025 Home Handyman Solutions LLC. All rights reserved.</p>
+        <p>Licensed Contractor | Serving Nebraska & Iowa</p>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile menu toggle
+      document
+        .querySelector(".mobile-menu")
+        .addEventListener("click", function () {
+          const nav = document.querySelector("nav ul");
+          nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+        });
+
+      // Jobber payment integration functions
+      function openJobberPayment() {
+        // Your actual Jobber Client Hub URL
+        const jobberPaymentURL = "https://clienthub.getjobber.com/client_hubs/d050407f-bff1-45f6-8f57-7a3fe3c94330/login/new?source=share_login";
+
+        // Open the Jobber Client Hub in a new tab
+        window.open(jobberPaymentURL, '_blank');
+      }
+
+      function lookupInvoices() {
+        const email = document.getElementById('customer-email').value;
+
+        if (!email) {
+          alert('Please enter your email address');
+          return;
+        }
+
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          alert('Please enter a valid email address');
+          return;
+        }
+
+        // Here you would integrate with Jobber's API to lookup invoices
+        // For now, we'll show a confirmation message
+        alert(`We'll send your invoice information to ${email} within a few minutes.`);
+
+        // You could also make an API call to your backend:
+        // fetch('/api/lookup-invoices', {
+        //   method: 'POST',
+        //   headers: { 'Content-Type': 'application/json' },
+        //   body: JSON.stringify({ email: email })
+        // });
+      }
+    </script>
+  </body>
+</html>
