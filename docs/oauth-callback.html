@@ -83,6 +83,11 @@
               const tokenData = await response.json();
               console.log('Token response data:', tokenData);
 
+              // Log any warnings (e.g., about refresh token rotation settings)
+              if (tokenData.warning) {
+                console.warn('Jobber API Warning:', tokenData.warning);
+              }
+
               this.accessToken = tokenData.access_token;
               this.refreshToken = tokenData.refresh_token;
 
@@ -98,9 +103,7 @@
                 localStorage.setItem('jobber_access_token', tokenData.access_token);
                 localStorage.setItem('jobber_refresh_token', tokenData.refresh_token);
                 localStorage.setItem('jobber_token_expiry', this.tokenExpiry.toString());
-              }
-
-              return tokenData;
+              }              return tokenData;
             } catch (error) {
               console.error('Error exchanging code for token:', error);
               throw error;

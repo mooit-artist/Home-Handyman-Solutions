@@ -86,6 +86,8 @@ class JobberConfig {
 
   /**
    * Refresh access token using refresh token
+   * Note: With Refresh Token Rotation ON, this generates a NEW refresh token
+   * that must replace the old one to prevent invalidation
    */
   async refreshAccessToken() {
     if (!this.refreshToken) {
@@ -93,10 +95,12 @@ class JobberConfig {
     }
 
     try {
+      const currentRefreshToken = this.refreshToken; // Store current token
+
       const formData = new URLSearchParams({
         client_id: this.clientId,
         client_secret: this.clientSecret,
-        refresh_token: this.refreshToken,
+        refresh_token: currentRefreshToken,
         grant_type: 'refresh_token'
       });
 
@@ -109,23 +113,41 @@ class JobberConfig {
       });
 
       if (!response.ok) {
-        throw new Error(`Token refresh failed: ${response.statusText}`);
+        const errorText = await response.text();
+        throw new Error(`Token refresh failed: ${response.status} ${response.statusText} - ${errorText}`);
       }
 
       const tokenData = await response.json();
 
+      // Log warning if present (helps with debugging rotation settings)
+      if (tokenData.warning) {
+        console.warn('Jobber API Warning:', tokenData.warning);
+      }
+
+      // Update tokens immediately to prevent race conditions
       this.accessToken = tokenData.access_token;
+
+      // CRITICAL: Always update refresh token even if it looks the same
+      // With rotation ON, this will be a new token
+      // With rotation OFF, it will be the same but we should still store it
+      if (tokenData.refresh_token) {
+        this.refreshToken = tokenData.refresh_token;
+      }
 
       // Handle expires_in - default to 1 hour if not provided
       const expiresInSeconds = tokenData.expires_in || 3600; // 1 hour default
       this.tokenExpiry = Date.now() + (expiresInSeconds * 1000);
 
-      // Update stored tokens
+      // Store updated tokens immediately
       this.storeTokens(tokenData);
+
+      console.log('Token refresh successful. New expiry:', new Date(this.tokenExpiry));
 
       return tokenData;
     } catch (error) {
       console.error('Error refreshing token:', error);
+      // If refresh fails, clear tokens to force re-authentication
+      this.clearTokens();
       throw error;
     }
   }
@@ -183,14 +205,25 @@ class JobberConfig {
 
   /**
    * Store tokens securely (implement based on your needs)
+   * CRITICAL: Always store the latest refresh token to handle rotation
    */
   storeTokens(tokenData) {
     // In a real application, store these securely
     // For now, using localStorage (not recommended for production)
     if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('jobber_access_token', tokenData.access_token);
-      localStorage.setItem('jobber_refresh_token', tokenData.refresh_token);
-      localStorage.setItem('jobber_token_expiry', this.tokenExpiry.toString());
+      if (tokenData.access_token) {
+        localStorage.setItem('jobber_access_token', tokenData.access_token);
+      }
+
+      // CRITICAL: Always store refresh token if provided
+      // With rotation ON, this is a new token that must replace the old one
+      if (tokenData.refresh_token) {
+        localStorage.setItem('jobber_refresh_token', tokenData.refresh_token);
+      }
+
+      if (this.tokenExpiry) {
+        localStorage.setItem('jobber_token_expiry', this.tokenExpiry.toString());
+      }
     }
   }
 
@@ -203,6 +236,21 @@ class JobberConfig {
       this.refreshToken = localStorage.getItem('jobber_refresh_token');
       const expiry = localStorage.getItem('jobber_token_expiry');
       this.tokenExpiry = expiry ? parseInt(expiry) : null;
+    }
+  }
+
+  /**
+   * Clear all stored tokens (used when refresh fails)
+   */
+  clearTokens() {
+    this.accessToken = null;
+    this.refreshToken = null;
+    this.tokenExpiry = null;
+
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem('jobber_access_token');
+      localStorage.removeItem('jobber_refresh_token');
+      localStorage.removeItem('jobber_token_expiry');
     }
   }
 }
