@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- Cache-busted version 2025-07-31 - Fixed GraphQL schema fields -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -166,6 +167,7 @@
             addTestResult('Testing account information...', 'pending');
 
             try {
+                // Fixed query - removed invalid fields email and timeZone
                 const query = `
                     query GetAccount {
                         account {
