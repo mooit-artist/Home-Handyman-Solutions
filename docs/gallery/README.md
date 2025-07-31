@@ -6,13 +6,20 @@ This directory contains all the project images for the gallery page.
 
 ```
 gallery/
-├── 814/                    (legacy folder - can be cleaned up)
+├── 814/                    (legacy folder - check for images to migrate)
+├── images/                 (NEW - organized gallery structure)
+│   ├── drywall/
+│   ├── deck/
+│   ├── electrical/
+│   ├── bathroom/
+│   ├── painting/
+│   └── README-INSTRUCTIONS.md
 └── README.md              (this file)
 ```
 
-**Note**: The image structure described below is the intended structure once images are added.
+**Status**: Gallery structure created! Ready for images from 814 folder or new uploads.
 
-## Planned Image Directory Structure
+## Gallery Image Directory Structure
 
 ```
 gallery/images/
@@ -46,16 +53,27 @@ Use the exact filenames shown above. The gallery page expects these specific nam
 
 ## Adding New Images
 
-1. **Create the directory structure first**:
+1. **Directory structure is ready!** ✅
+
+2. **If you have images in the 814 folder:**
    ```bash
-   mkdir -p gallery/images/{drywall,deck,electrical,bathroom,painting}
+   # Check what's in 814 folder
+   ls -la docs/gallery/814/
+
+   # Move and rename images to proper locations
+   # Example:
+   # mv docs/gallery/814/your-image.jpg docs/gallery/images/drywall/drywall-repair-1.jpg
    ```
 
-2. **For customers**: Email photos to info@homehandymansolutionsllc.com
+3. **For new customer photos**: Email to info@homehandymansolutionsllc.com
 
-3. **For developers**: Upload images to the appropriate category folder with the correct filename
+4. **For developers**: Upload images to the appropriate category folder with the correct filename
 
-4. **For additional projects**: You can add new numbered images (e.g., `drywall-repair-2.jpg`) and update the gallery.html accordingly
+5. **For additional projects**: Add numbered images (e.g., `drywall-repair-2.jpg`) and update gallery.html
+
+## Migration from 814 Folder
+
+If you find images in the 814 folder, see `docs/gallery/images/README-INSTRUCTIONS.md` for detailed migration steps.
 
 ## Setup Instructions
 
