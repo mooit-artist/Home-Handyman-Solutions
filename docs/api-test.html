@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Cache-busted version 2025-07-31 - Fixed GraphQL schema fields -->
+<!-- Cache-busted version 2025-07-31 v2 - Fixed Invoice status field -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -213,6 +213,7 @@
             addTestResult('Testing invoices list...', 'pending');
 
             try {
+                // Fixed query - removed invalid status field
                 const query = `
                     query GetInvoices {
                         invoices(first: 5) {
