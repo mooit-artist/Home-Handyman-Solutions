@@ -69,6 +69,7 @@
                 <button onclick="testAccountInfo()">Test Account Info</button>
                 <button onclick="testClients()">Test Clients</button>
                 <button onclick="testInvoices()">Test Invoices</button>
+                <button onclick="testJobs()">Test Jobs/Work Orders</button>
                 <button onclick="clearResults()">Clear Results</button>
 
                 <div id="test-results"></div>
@@ -236,6 +237,43 @@
                 addTestResult(`✅ Invoices Test Success:\nFound ${result.invoices.totalCount} total invoices\n${JSON.stringify(result, null, 2)}`, 'success');
             } catch (error) {
                 addTestResult(`❌ Invoices Test Failed:\n${error.message}`, 'error');
+            }
+        }
+
+        async function testJobs() {
+            addTestResult('Testing jobs/work orders...', 'pending');
+
+            try {
+                const query = `
+                    query GetJobs {
+                        jobs(first: 10) {
+                            nodes {
+                                id
+                                title
+                                jobNumber
+                                jobStatus
+                                createdAt
+                                client {
+                                    name
+                                }
+                            }
+                            totalCount
+                        }
+                    }
+                `;
+
+                const result = await makeJobberAPICall(query);
+                
+                // Count pending jobs
+                const pendingJobs = result.jobs.nodes.filter(job => 
+                    job.jobStatus === 'PENDING' || 
+                    job.jobStatus === 'SCHEDULED' || 
+                    job.jobStatus === 'IN_PROGRESS'
+                );
+                
+                addTestResult(`✅ Jobs Test Success:\nTotal jobs: ${result.jobs.totalCount}\nPending/Active jobs: ${pendingJobs.length}\n\n${JSON.stringify(result, null, 2)}`, 'success');
+            } catch (error) {
+                addTestResult(`❌ Jobs Test Failed:\n${error.message}`, 'error');
             }
         }
 
