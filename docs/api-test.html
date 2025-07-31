@@ -91,7 +91,7 @@
 
             if (!accessToken) {
                 indicator.className = 'status-indicator status-error';
-                message.innerHTML = '❌ No access token found. Please complete OAuth authentication first.';
+                message.innerHTML = '❌ No access token found. <a href="https://api.getjobber.com/api/oauth/authorize?client_id=92cf415d-f396-4bef-8807-a651d5569964&redirect_uri=https://homehandymansolutionsllc.com/oauth-callback.html&response_type=code&scope=read_invoices+write_invoices+read_clients+write_clients+read_payments+write_payments" style="color: #0066cc;">Complete OAuth authentication first</a>.';
                 document.getElementById('api-tests').style.display = 'none';
                 return;
             }
