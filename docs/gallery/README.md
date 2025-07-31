@@ -2,7 +2,17 @@
 
 This directory contains all the project images for the gallery page.
 
-## Directory Structure
+## Current Directory Structure
+
+```
+gallery/
+├── 814/                    (legacy folder - can be cleaned up)
+└── README.md              (this file)
+```
+
+**Note**: The image structure described below is the intended structure once images are added.
+
+## Planned Image Directory Structure
 
 ```
 gallery/images/
@@ -36,9 +46,29 @@ Use the exact filenames shown above. The gallery page expects these specific nam
 
 ## Adding New Images
 
-1. **For customers**: Email photos to info@homehandymansolutionsllc.com
-2. **For developers**: Upload images to the appropriate category folder with the correct filename
-3. **For additional projects**: You can add new numbered images (e.g., `drywall-repair-2.jpg`) and update the HTML accordingly
+1. **Create the directory structure first**:
+   ```bash
+   mkdir -p gallery/images/{drywall,deck,electrical,bathroom,painting}
+   ```
+
+2. **For customers**: Email photos to info@homehandymansolutionsllc.com
+
+3. **For developers**: Upload images to the appropriate category folder with the correct filename
+
+4. **For additional projects**: You can add new numbered images (e.g., `drywall-repair-2.jpg`) and update the gallery.html accordingly
+
+## Setup Instructions
+
+To set up the gallery structure from scratch:
+
+1. Create the images directory and subdirectories
+2. Add your project photos with the naming convention below
+3. Update the gallery.html file to reference the new images
+
+## Cleanup Tasks
+
+- Remove the `814/` folder if no longer needed
+- Remove `.DS_Store` files (macOS system files)
 
 ## Backup
 
