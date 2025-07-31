@@ -34,16 +34,16 @@
 <body>
     <h1>Clear Jobber Authentication Tokens</h1>
     <p>This will clear all stored Jobber API tokens from localStorage.</p>
-    
+
     <button onclick="clearTokens()">Clear All Tokens</button>
-    
+
     <div id="result"></div>
-    
+
     <hr style="margin: 2rem 0;">
-    
+
     <h2>Re-authenticate</h2>
     <p>After clearing tokens, use this link to start fresh authentication:</p>
-    <a href="https://api.getjobber.com/api/oauth/authorize?client_id=92cf415d-f396-4bef-8807-a651d5569964&redirect_uri=https://homehandymansolutionsllc.com/oauth-callback.html&response_type=code&scope=read_invoices+write_invoices+read_clients+write_clients+read_payments+write_payments" 
+    <a href="https://api.getjobber.com/api/oauth/authorize?client_id=92cf415d-f396-4bef-8807-a651d5569964&redirect_uri=https://homehandymansolutionsllc.com/oauth-callback.html&response_type=code&scope=read_invoices+write_invoices+read_clients+write_clients+read_payments+write_payments"
        style="display: inline-block; background: #10b981; color: white; padding: 1rem 2rem; text-decoration: none; border-radius: 6px; margin: 1rem;">
         🔐 Start Fresh Authentication
     </a>
@@ -55,25 +55,25 @@
                 localStorage.removeItem('jobber_access_token');
                 localStorage.removeItem('jobber_refresh_token');
                 localStorage.removeItem('jobber_token_expiry');
-                
+
                 // Show success message
                 document.getElementById('result').innerHTML = '<p class="success">✅ All tokens cleared successfully!</p>';
-                
+
                 // Show current status
                 setTimeout(() => {
                     showTokenStatus();
                 }, 1000);
-                
+
             } catch (error) {
                 document.getElementById('result').innerHTML = '<p style="color: red;">❌ Error clearing tokens: ' + error.message + '</p>';
             }
         }
-        
+
         function showTokenStatus() {
             const accessToken = localStorage.getItem('jobber_access_token');
             const refreshToken = localStorage.getItem('jobber_refresh_token');
             const tokenExpiry = localStorage.getItem('jobber_token_expiry');
-            
+
             const status = `
                 <h3>Current Token Status:</h3>
                 <ul style="text-align: left;">
@@ -82,10 +82,10 @@
                     <li>Token Expiry: ${tokenExpiry ? '❌ Still exists' : '✅ Cleared'}</li>
                 </ul>
             `;
-            
+
             document.getElementById('result').innerHTML += status;
         }
-        
+
         // Show current status on page load
         document.addEventListener('DOMContentLoaded', function() {
             showTokenStatus();
