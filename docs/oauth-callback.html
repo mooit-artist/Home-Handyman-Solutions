@@ -40,8 +40,65 @@
         </div>
     </main>
 
-    <script src="../scripts/jobber-config.js"></script>
     <script>
+        // Embedded JobberConfig class for production compatibility
+        class JobberConfig {
+          constructor() {
+            this.baseURL = 'https://api.getjobber.com/api/graphql';
+            this.clientId = null;
+            this.clientSecret = null;
+            this.accessToken = null;
+            this.refreshToken = null;
+            this.tokenExpiry = null;
+          }
+
+          loadCredentials() {
+            this.clientId = '92cf415d-f396-4bef-8807-a651d5569964';
+            this.clientSecret = 'b84a345305b241bdd4df87795428e338d0d05a6f27b76b8d08c3c96655823233';
+          }
+
+          async exchangeCodeForToken(code, redirectUri) {
+            try {
+              const formData = new URLSearchParams({
+                client_id: this.clientId,
+                client_secret: this.clientSecret,
+                code: code,
+                grant_type: 'authorization_code',
+                redirect_uri: redirectUri
+              });
+
+              const response = await fetch('https://api.getjobber.com/api/oauth/token', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: formData.toString()
+              });
+
+              if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Token exchange failed: ${response.status} ${response.statusText} - ${errorText}`);
+              }
+
+              const tokenData = await response.json();
+              this.accessToken = tokenData.access_token;
+              this.refreshToken = tokenData.refresh_token;
+              this.tokenExpiry = Date.now() + (tokenData.expires_in * 1000);
+
+              if (typeof localStorage !== 'undefined') {
+                localStorage.setItem('jobber_access_token', tokenData.access_token);
+                localStorage.setItem('jobber_refresh_token', tokenData.refresh_token);
+                localStorage.setItem('jobber_token_expiry', this.tokenExpiry.toString());
+              }
+
+              return tokenData;
+            } catch (error) {
+              console.error('Error exchanging code for token:', error);
+              throw error;
+            }
+          }
+        }
+
         // Handle OAuth callback
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
