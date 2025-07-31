@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Jobber API Versions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        button:hover { background: #2563eb; }
+        button:disabled { background: #9ca3af; cursor: not-allowed; }
+        .result {
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        .success { background: #f0fdf4; border: 1px solid #10b981; }
+        .error { background: #fef2f2; border: 1px solid #ef4444; }
+        .testing { background: #fffbeb; border: 1px solid #f59e0b; }
+    </style>
+</head>
+<body>
+    <h1>Jobber API Version Tester</h1>
+    <p>This will test different API versions to find which ones work.</p>
+
+    <div>
+        <button onclick="testAllVersions()">Test All Versions</button>
+        <button onclick="clearResults()">Clear Results</button>
+    </div>
+
+    <div id="results"></div>
+
+    <script>
+        const versionsToTest = [
+            { header: 'X-API-VERSION', value: '2.0' },
+            { header: 'X-API-VERSION', value: '1.0' },
+            { header: 'X-OAUTH-VERSION', value: '2.0' },
+            { header: 'X-JOBBER-API-VERSION', value: '2.0' },
+            { header: 'X-JOBBER-API-VERSION', value: '1.0' },
+            { header: 'X-JOBBER-GRAPHQL-VERSION', value: '2024-01-01' },
+            { header: 'X-JOBBER-GRAPHQL-VERSION', value: '2023-01-01' },
+            { header: 'API-Version', value: '2.0' },
+            { header: null, value: null } // No version header
+        ];
+
+        async function testVersion(versionConfig) {
+            const accessToken = localStorage.getItem('jobber_access_token');
+
+            if (!accessToken) {
+                return { success: false, error: 'No access token found' };
+            }
+
+            try {
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                };
+
+                // Add version header if specified
+                if (versionConfig.header && versionConfig.value) {
+                    headers[versionConfig.header] = versionConfig.value;
+                }
+
+                const response = await fetch('https://api.getjobber.com/api/graphql', {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify({
+                        query: `query TestVersion { account { id name } }`
+                    })
+                });
+
+                const data = await response.text();
+
+                return {
+                    success: response.ok,
+                    status: response.status,
+                    statusText: response.statusText,
+                    data: data
+                };
+            } catch (error) {
+                return {
+                    success: false,
+                    error: error.message
+                };
+            }
+        }
+
+        async function testAllVersions() {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<h3>Testing API Versions...</h3>';
+
+            for (const versionConfig of versionsToTest) {
+                const testName = versionConfig.header ?
+                    `${versionConfig.header}: ${versionConfig.value}` :
+                    'No version header';
+
+                addResult(`Testing: ${testName}...`, 'testing');
+
+                const result = await testVersion(versionConfig);
+
+                if (result.success) {
+                    addResult(`✅ ${testName} WORKS! Status: ${result.status}`, 'success');
+                    console.log(`Working version ${testName}:`, result.data);
+                } else {
+                    const errorMsg = result.error || `${result.status} ${result.statusText} - ${result.data}`;
+                    addResult(`❌ ${testName} failed: ${errorMsg}`, 'error');
+                }
+
+                // Small delay between tests
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+
+            addResult('🏁 Testing completed!', 'testing');
+        }
+
+        function addResult(message, type) {
+            const resultsDiv = document.getElementById('results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `result ${type}`;
+            resultDiv.textContent = message;
+            resultsDiv.appendChild(resultDiv);
+            resultsDiv.scrollTop = resultsDiv.scrollHeight;
+        }
+
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+        }
+
+        // Check token status on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const accessToken = localStorage.getItem('jobber_access_token');
+            if (!accessToken) {
+                addResult('⚠️ No access token found. Please authenticate first at: https://homehandymansolutionsllc.com/api-test.html', 'error');
+            } else {
+                addResult('✅ Access token found. Ready to test API versions.', 'success');
+            }
+        });
+    </script>
+</body>
+</html>
