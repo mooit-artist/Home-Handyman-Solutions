@@ -1,0 +1,1 @@
+https://api.getjobber.com/api/oauth/authorize?client_id=92cf415d-f396-4bef-8807-a651d5569964&redirect_uri=http://127.0.0.1:54947/oauth-callback.html&response_type=code&scope=read_invoices+write_invoices+read_clients+write_clients+read_payments+write_payments
