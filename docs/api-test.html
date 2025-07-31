@@ -88,8 +88,11 @@
 
             console.log('Checking auth status...');
             console.log('Access token exists:', !!accessToken);
-            console.log('Token length:', accessToken ? accessToken.length : 0);
-            console.log('Token starts with:', accessToken ? accessToken.substring(0, 10) : 'none');
+            console.log('Access token length:', accessToken ? accessToken.length : 0);
+            console.log('Access token starts with:', accessToken ? accessToken.substring(0, 10) : 'none');
+            console.log('Refresh token exists:', !!refreshToken);
+            console.log('Token expiry raw value:', tokenExpiry);
+            console.log('Token expiry type:', typeof tokenExpiry);
 
             const indicator = document.getElementById('auth-indicator');
             const message = document.getElementById('auth-message');
@@ -104,12 +107,17 @@
             const expiryTime = tokenExpiry ? new Date(parseInt(tokenExpiry)) : null;
             const now = new Date();
 
+            console.log('Token expiry raw:', tokenExpiry);
+            console.log('Token expiry parsed:', expiryTime);
+            console.log('Current time:', now);
+
             if (expiryTime && expiryTime < now) {
                 indicator.className = 'status-indicator status-error';
                 message.innerHTML = '⚠️ Access token has expired. Please re-authenticate.';
             } else {
                 indicator.className = 'status-indicator status-success';
-                message.innerHTML = `✅ Authenticated! Token expires: ${expiryTime ? expiryTime.toLocaleString() : 'Unknown'}`;
+                const expiryText = expiryTime && !isNaN(expiryTime.getTime()) ? expiryTime.toLocaleString() : 'Unknown';
+                message.innerHTML = `✅ Authenticated! Token expires: ${expiryText}`;
             }
         }
 
