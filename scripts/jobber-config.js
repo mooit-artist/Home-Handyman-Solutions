@@ -19,8 +19,9 @@ class JobberConfig {
    */
   loadCredentials() {
     // For development - in production, use environment variables
-    this.clientId = process.env.JOBBER_CLIENT_ID || '92cf415d-f396-4bef-8807-a651d5569964';
-    this.clientSecret = process.env.JOBBER_CLIENT_SECRET || 'b84a345305b241bdd4df87795428e338d0d05a6f27b76b8d08c3c96655823233';
+    // Note: In browser context, we use hardcoded values (not secure for production)
+    this.clientId = '92cf415d-f396-4bef-8807-a651d5569964';
+    this.clientSecret = 'b84a345305b241bdd4df87795428e338d0d05a6f27b76b8d08c3c96655823233';
   }
 
   /**
@@ -43,18 +44,21 @@ class JobberConfig {
    */
   async exchangeCodeForToken(code, redirectUri) {
     try {
+      // Prepare form data as required by Jobber OAuth
+      const formData = new URLSearchParams({
+        client_id: this.clientId,
+        client_secret: this.clientSecret,
+        code: code,
+        grant_type: 'authorization_code',
+        redirect_uri: redirectUri
+      });
+
       const response = await fetch('https://api.getjobber.com/api/oauth/token', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify({
-          client_id: this.clientId,
-          client_secret: this.clientSecret,
-          code: code,
-          grant_type: 'authorization_code',
-          redirect_uri: redirectUri
-        })
+        body: formData.toString()
       });
 
       if (!response.ok) {
@@ -86,17 +90,19 @@ class JobberConfig {
     }
 
     try {
+      const formData = new URLSearchParams({
+        client_id: this.clientId,
+        client_secret: this.clientSecret,
+        refresh_token: this.refreshToken,
+        grant_type: 'refresh_token'
+      });
+
       const response = await fetch('https://api.getjobber.com/api/oauth/token', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify({
-          client_id: this.clientId,
-          client_secret: this.clientSecret,
-          refresh_token: this.refreshToken,
-          grant_type: 'refresh_token'
-        })
+        body: formData.toString()
       });
 
       if (!response.ok) {
