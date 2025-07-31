@@ -156,7 +156,7 @@ class JobberConfig {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${this.accessToken}`,
-          'X-API-VERSION': '2.0'
+          'X-JOBBER-GRAPHQL-VERSION': '2022-01-01'
         },
         body: JSON.stringify({
           query: query,

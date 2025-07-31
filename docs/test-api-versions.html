@@ -47,15 +47,17 @@
 
     <script>
         const versionsToTest = [
-            { header: 'X-API-VERSION', value: '2.0' },
-            { header: 'X-API-VERSION', value: '1.0' },
-            { header: 'X-OAUTH-VERSION', value: '2.0' },
-            { header: 'X-JOBBER-API-VERSION', value: '2.0' },
-            { header: 'X-JOBBER-API-VERSION', value: '1.0' },
-            { header: 'X-JOBBER-GRAPHQL-VERSION', value: '2024-01-01' },
-            { header: 'X-JOBBER-GRAPHQL-VERSION', value: '2023-01-01' },
-            { header: 'API-Version', value: '2.0' },
-            { header: null, value: null } // No version header
+            { header: 'X-JOBBER-GRAPHQL-VERSION', value: '2022-01-01' },
+            { header: 'X-JOBBER-GRAPHQL-VERSION', value: '2022-06-01' },
+            { header: 'X-JOBBER-GRAPHQL-VERSION', value: '2021-01-01' },
+            { header: 'X-JOBBER-GRAPHQL-VERSION', value: '2021-06-01' },
+            { header: 'X-JOBBER-GRAPHQL-VERSION', value: '2020-01-01' },
+            { header: 'X-JOBBER-GRAPHQL-VERSION', value: '2020-06-01' },
+            { header: 'X-JOBBER-GRAPHQL-VERSION', value: '2019-01-01' },
+            { header: 'X-JOBBER-GRAPHQL-VERSION', value: '2024-06-15' },
+            { header: 'X-JOBBER-GRAPHQL-VERSION', value: '2023-06-15' },
+            { header: 'X-JOBBER-GRAPHQL-VERSION', value: '2022-03-15' },
+            { header: 'X-JOBBER-GRAPHQL-VERSION', value: '2021-03-15' }
         ];
 
         async function testVersion(versionConfig) {
