@@ -69,7 +69,10 @@ class JobberConfig {
 
       this.accessToken = tokenData.access_token;
       this.refreshToken = tokenData.refresh_token;
-      this.tokenExpiry = Date.now() + (tokenData.expires_in * 1000);
+
+      // Handle expires_in - default to 1 hour if not provided
+      const expiresInSeconds = tokenData.expires_in || 3600; // 1 hour default
+      this.tokenExpiry = Date.now() + (expiresInSeconds * 1000);
 
       // Store tokens securely (implement proper storage)
       this.storeTokens(tokenData);
@@ -112,7 +115,10 @@ class JobberConfig {
       const tokenData = await response.json();
 
       this.accessToken = tokenData.access_token;
-      this.tokenExpiry = Date.now() + (tokenData.expires_in * 1000);
+
+      // Handle expires_in - default to 1 hour if not provided
+      const expiresInSeconds = tokenData.expires_in || 3600; // 1 hour default
+      this.tokenExpiry = Date.now() + (expiresInSeconds * 1000);
 
       // Update stored tokens
       this.storeTokens(tokenData);

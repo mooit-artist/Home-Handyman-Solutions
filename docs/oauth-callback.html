@@ -81,9 +81,18 @@
               }
 
               const tokenData = await response.json();
+              console.log('Token response data:', tokenData);
+
               this.accessToken = tokenData.access_token;
               this.refreshToken = tokenData.refresh_token;
-              this.tokenExpiry = Date.now() + (tokenData.expires_in * 1000);
+
+              // Handle expires_in - default to 1 hour if not provided
+              const expiresInSeconds = tokenData.expires_in || 3600; // 1 hour default
+              this.tokenExpiry = Date.now() + (expiresInSeconds * 1000);
+
+              console.log('Token expires_in:', tokenData.expires_in);
+              console.log('Calculated expiry timestamp:', this.tokenExpiry);
+              console.log('Expiry date:', new Date(this.tokenExpiry));
 
               if (typeof localStorage !== 'undefined') {
                 localStorage.setItem('jobber_access_token', tokenData.access_token);
