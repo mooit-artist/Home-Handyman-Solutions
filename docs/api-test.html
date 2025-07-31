@@ -57,7 +57,7 @@
     <main>
         <div class="test-container">
             <h1>Jobber API Status Test</h1>
-            
+
             <div id="auth-status">
                 <h3><span class="status-indicator" id="auth-indicator"></span>Authentication Status</h3>
                 <p id="auth-message">Checking authentication...</p>
@@ -69,7 +69,7 @@
                 <button onclick="testClients()">Test Clients</button>
                 <button onclick="testInvoices()">Test Invoices</button>
                 <button onclick="clearResults()">Clear Results</button>
-                
+
                 <div id="test-results"></div>
             </div>
         </div>
@@ -85,20 +85,20 @@
             const accessToken = localStorage.getItem('jobber_access_token');
             const refreshToken = localStorage.getItem('jobber_refresh_token');
             const tokenExpiry = localStorage.getItem('jobber_token_expiry');
-            
+
             const indicator = document.getElementById('auth-indicator');
             const message = document.getElementById('auth-message');
-            
+
             if (!accessToken) {
                 indicator.className = 'status-indicator status-error';
                 message.innerHTML = '❌ No access token found. Please complete OAuth authentication first.';
                 document.getElementById('api-tests').style.display = 'none';
                 return;
             }
-            
+
             const expiryTime = tokenExpiry ? new Date(parseInt(tokenExpiry)) : null;
             const now = new Date();
-            
+
             if (expiryTime && expiryTime < now) {
                 indicator.className = 'status-indicator status-error';
                 message.innerHTML = '⚠️ Access token has expired. Please re-authenticate.';
@@ -110,7 +110,7 @@
 
         async function makeJobberAPICall(query, variables = {}) {
             const accessToken = localStorage.getItem('jobber_access_token');
-            
+
             if (!accessToken) {
                 throw new Error('No access token available');
             }
@@ -133,7 +133,7 @@
             }
 
             const data = await response.json();
-            
+
             if (data.errors) {
                 throw new Error(`GraphQL errors: ${JSON.stringify(data.errors, null, 2)}`);
             }
@@ -143,7 +143,7 @@
 
         async function testAccountInfo() {
             addTestResult('Testing account information...', 'pending');
-            
+
             try {
                 const query = `
                     query GetAccount {
@@ -156,7 +156,7 @@
                         }
                     }
                 `;
-                
+
                 const result = await makeJobberAPICall(query);
                 addTestResult(`✅ Account Info Success:\n${JSON.stringify(result, null, 2)}`, 'success');
             } catch (error) {
@@ -166,7 +166,7 @@
 
         async function testClients() {
             addTestResult('Testing clients list...', 'pending');
-            
+
             try {
                 const query = `
                     query GetClients {
@@ -182,7 +182,7 @@
                         }
                     }
                 `;
-                
+
                 const result = await makeJobberAPICall(query);
                 addTestResult(`✅ Clients Test Success:\nFound ${result.clients.totalCount} total clients\n${JSON.stringify(result, null, 2)}`, 'success');
             } catch (error) {
@@ -192,7 +192,7 @@
 
         async function testInvoices() {
             addTestResult('Testing invoices list...', 'pending');
-            
+
             try {
                 const query = `
                     query GetInvoices {
@@ -212,7 +212,7 @@
                         }
                     }
                 `;
-                
+
                 const result = await makeJobberAPICall(query);
                 addTestResult(`✅ Invoices Test Success:\nFound ${result.invoices.totalCount} total invoices\n${JSON.stringify(result, null, 2)}`, 'success');
             } catch (error) {
