@@ -35,3 +35,4 @@ invoke>=2.2.0             # Task runner
 python-dotenv>=1.0.0      # Environment variables
 click>=8.1.0              # CLI creation
 rich>=13.5.0              # Rich text and beautiful formatting
+cryptography>=46.0.5 # not directly required, pinned by Snyk to avoid a vulnerability
