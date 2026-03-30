@@ -48,9 +48,6 @@ header {
 .logo {
   display: flex;
   align-items: center;
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: var(--soft-gold);
 }
 
 .logo a {
