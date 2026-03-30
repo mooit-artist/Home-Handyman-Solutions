@@ -1,4 +1,4 @@
-/* HandyMan Services CSS */
+/* Handyman Services CSS */
 :root {
   --dark-walnut: #3c2e26;
   --slate-gray: #4a5568;
@@ -7,6 +7,9 @@
   --white: #ffffff;
   --text-dark: #2d3748;
   --shadow: rgba(0, 0, 0, 0.1);
+  --border-light: #e2e8f0;
+  --input-border: #d1d5db;
+  --gold-hover: #b8941f;
 }
 
 * {
@@ -16,7 +19,7 @@
 }
 
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: Arial, sans-serif;
   line-height: 1.6;
   color: var(--text-dark);
   background-color: var(--white);
@@ -43,9 +46,23 @@ header {
 }
 
 .logo {
+  display: flex;
+  align-items: center;
   font-size: 1.8rem;
   font-weight: bold;
   color: var(--soft-gold);
+}
+
+.logo a {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo img {
+  height: 60px;
+  width: auto;
+  display: block;
 }
 
 nav ul {
@@ -61,7 +78,8 @@ nav a {
   transition: color 0.3s ease;
 }
 
-nav a:hover {
+nav a:hover,
+nav a:focus {
   color: var(--soft-gold);
 }
 
@@ -77,8 +95,9 @@ nav a:hover {
 
 /* Hero Section */
 .hero {
-  background: linear-gradient(rgba(60, 46, 38, 0.7), rgba(74, 85, 104, 0.7)), 
-              url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%234a5568" width="1200" height="600"/><circle fill="%23d4af37" cx="300" cy="150" r="20" opacity="0.3"/><circle fill="%23d4af37" cx="900" cy="400" r="15" opacity="0.2"/></svg>');
+  background:
+    linear-gradient(rgba(60, 46, 38, 0.7), rgba(74, 85, 104, 0.7)),
+    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%234a5568" width="1200" height="600"/><circle fill="%23d4af37" cx="300" cy="150" r="20" opacity="0.3"/><circle fill="%23d4af37" cx="900" cy="400" r="15" opacity="0.2"/></svg>');
   background-size: cover;
   background-position: center;
   height: 70vh;
@@ -103,7 +122,7 @@ nav a:hover {
 
 .hero-content p {
   font-size: 1.1rem;
-  margin-bottom: 2rem;
+  margin: 0 auto 2rem;
   max-width: 600px;
 }
 
@@ -122,8 +141,9 @@ nav a:hover {
   font-size: 1rem;
 }
 
-.btn:hover {
-  background-color: #b8941f;
+.btn:hover,
+.btn:focus {
+  background-color: var(--gold-hover);
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
 }
@@ -134,7 +154,8 @@ nav a:hover {
   border: 2px solid var(--soft-gold);
 }
 
-.btn-secondary:hover {
+.btn-secondary:hover,
+.btn-secondary:focus {
   background-color: var(--soft-gold);
   color: var(--dark-walnut);
 }
@@ -177,7 +198,7 @@ h3 {
   border-radius: 10px;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-light);
 }
 
 .service-card:hover {
@@ -229,7 +250,7 @@ h3 {
   padding: 1rem;
   border-radius: 5px;
   text-align: center;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-light);
 }
 
 /* Contact Form */
@@ -261,7 +282,7 @@ h3 {
 .form-group textarea {
   width: 100%;
   padding: 12px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--input-border);
   border-radius: 5px;
   font-size: 1rem;
   transition: border-color 0.3s ease;
@@ -282,11 +303,22 @@ h3 {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .contact-info .icon {
   color: var(--soft-gold);
   font-weight: bold;
+}
+
+.contact-info a {
+  color: var(--dark-walnut);
+  text-decoration: none;
+}
+
+.contact-info a:hover,
+.contact-info a:focus {
+  color: var(--soft-gold);
 }
 
 /* Map Container */
@@ -299,7 +331,7 @@ h3 {
   align-items: center;
   justify-content: center;
   color: var(--slate-gray);
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-light);
 }
 
 /* Footer */
@@ -344,38 +376,46 @@ footer {
   .header-container {
     padding: 0 1rem;
   }
-  
+
   nav ul {
     display: none;
+    flex-direction: column;
+    gap: 1rem;
+    background: var(--dark-walnut);
+    position: absolute;
+    top: 100%;
+    right: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    min-width: 200px;
+    box-shadow: 0 8px 20px var(--shadow);
   }
-  
+
   .mobile-menu {
     display: block;
   }
-  
+
   .hero-content h1 {
     font-size: 2.5rem;
   }
-  
+
   .hero-content .tagline {
     font-size: 1.1rem;
   }
-  
+
   main {
     padding: 0 1rem;
   }
-  
-  .services-grid {
-    grid-template-columns: 1fr;
-  }
-  
+
+  .services-grid,
   .about-content,
-  .contact-content {
-    grid-template-columns: 1fr;
-  }
-  
+  .contact-content,
   .areas-list {
     grid-template-columns: 1fr;
+  }
+
+  .logo img {
+    height: 48px;
   }
 }
 
@@ -383,16 +423,21 @@ footer {
   .hero {
     height: 60vh;
   }
-  
+
   .hero-content h1 {
     font-size: 2rem;
   }
-  
+
   h2 {
     font-size: 2rem;
   }
-  
+
   section {
     padding: 2rem 0;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
   }
 }
